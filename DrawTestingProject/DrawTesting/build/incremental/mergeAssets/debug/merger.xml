@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/Users/demouser/Documents/DrawTestingProject/DrawTesting/src/main/assets" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/demouser/Documents/DrawTestingProject/DrawTesting/src/debug/assets" />
+    </dataSet>
+
+</merger>
