@@ -174,7 +174,19 @@ public class MainActivity extends Activity {
 
     private void selectItem(int position) {
         // update the main content by replacing fragments
-        Fragment fragment = new ViewFragment();
+        Fragment fragment;
+        switch(position) {
+            case 1:
+                // Tasks
+                fragment = new ViewFragment();
+                break;
+            case 2:
+                // Design/Drawing
+                fragment = new ViewFragment();
+                break;
+            default:
+                fragment = new ViewFragment();
+        }
         Bundle args = new Bundle();
         args.putInt(ViewFragment.ARG_VIEW_NUMBER, position);
         fragment.setArguments(args);
