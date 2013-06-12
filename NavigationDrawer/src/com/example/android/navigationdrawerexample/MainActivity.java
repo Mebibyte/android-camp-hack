@@ -176,13 +176,13 @@ public class MainActivity extends Activity {
         // update the main content by replacing fragments
         Fragment fragment;
         switch(position) {
-            case 1:
+            case 0:
                 // Tasks
                 fragment = new ViewFragment();
                 break;
-            case 2:
+            case 1:
                 // Design/Drawing
-                fragment = new ViewFragment();
+                fragment = new DesignFragment();
                 break;
             default:
                 fragment = new ViewFragment();
@@ -242,6 +242,24 @@ public class MainActivity extends Activity {
             int i = getArguments().getInt(ARG_VIEW_NUMBER);
             String newView = getResources().getStringArray(R.array.planets_array)[i];
             ((TextView) rootView.findViewById(R.id.textView)).setText(newView);
+            getActivity().setTitle(newView);
+            return rootView;
+        }
+    }
+
+    public static class DesignFragment extends Fragment {
+        public static final String ARG_VIEW_NUMBER = "view_number";
+
+        public DesignFragment() {
+            // Empty constructor required for fragment subclasses
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.activity_design, container, false);
+            int i = getArguments().getInt(ARG_VIEW_NUMBER);
+            String newView = getResources().getStringArray(R.array.planets_array)[i];
             getActivity().setTitle(newView);
             return rootView;
         }
