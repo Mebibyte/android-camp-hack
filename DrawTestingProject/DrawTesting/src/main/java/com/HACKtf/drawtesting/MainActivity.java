@@ -2,7 +2,6 @@ package com.HACKtf.drawtesting;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 
 public class MainActivity extends Activity {
 
@@ -11,8 +10,4 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
-
-
-    
 }

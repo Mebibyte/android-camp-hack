@@ -6,19 +6,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.util.ArrayList;
 
-/**
- * Created by demouser on 6/11/13.
- */
-
-enum State
-{
+enum State {
     DRAW, ERASE, RECTANGLE;
 }
 
@@ -28,8 +22,8 @@ public class DrawPanel extends SurfaceView implements SurfaceHolder.Callback {
     private Paint mPaint;
     private ArrayList<Path> paths = new ArrayList<Path>();
     private State state = State.DRAW;
-    public DrawPanel(Context context)
-    {
+
+    public DrawPanel(Context context) {
         super(context);
         getHolder().addCallback(this);
         drawThread = new DrawThread(getHolder(), this);
@@ -43,74 +37,59 @@ public class DrawPanel extends SurfaceView implements SurfaceHolder.Callback {
         setFocusable(true);
     }
 
-    public DrawPanel(Context context, AttributeSet attrbs)
-    {
+    public DrawPanel(Context context, AttributeSet attrbs) {
         this(context);
     }
 
-    public DrawPanel(Context context, AttributeSet attrbs, int defStyle)
-    {
+    public DrawPanel(Context context, AttributeSet attrbs, int defStyle) {
         this(context);
     }
 
-    public DrawThread getThread()
-    {
+    public DrawThread getThread() {
         return drawThread;
     }
 
-    public void surfaceCreated(SurfaceHolder holder)
-    {
+    public void surfaceCreated(SurfaceHolder holder) {
         drawThread.setRunning(true);
         drawThread.start();
     }
 
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
-    {
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
     }
 
-    public void surfaceDestroyed(SurfaceHolder holder)
-    {
+    public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
         drawThread.setRunning(false);
-        while(retry)
-        {
-            try
-            {
+        while(retry) {
+            try {
                 drawThread.join();
                 retry = false;
-            }   catch(InterruptedException e)
-            {
+            } catch(InterruptedException e) {
 
             }
         }
     }
 
     @Override
-    public void onDraw(Canvas canvas)
-    {
+    public void onDraw(Canvas canvas) {
         canvas.drawColor(Color.WHITE);
-        for(Path path : paths) {
+        for (Path path : paths) {
             canvas.drawPath(path, mPaint);
         }
     }
 
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        synchronized(drawThread.getSurfaceHolder())
-        {
-            if(event.getAction() == MotionEvent.ACTION_DOWN)
-            {
+    public boolean onTouchEvent(MotionEvent event) {
+        synchronized(drawThread.getSurfaceHolder()) {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
                 path = new Path();
                 path.moveTo(event.getX(), event.getY());
                 path.lineTo(event.getX(), event.getY());
                 paths.add(path);
-            }else if(event.getAction() == MotionEvent.ACTION_MOVE ||
-                    event.getAction() == MotionEvent.ACTION_UP)
-            {
+            } else if(event.getAction() == MotionEvent.ACTION_MOVE ||
+                    event.getAction() == MotionEvent.ACTION_UP) {
                 path.lineTo(event.getX(), event.getY());
             }
-
             return true;
         }
     }

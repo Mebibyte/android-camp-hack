@@ -1,4 +1,4 @@
-package com.h.a.c.k.e.f.databasetestproject;
+package com.example.android.navigationdrawerexample;
 
 import android.content.ContentValues;
 import android.content.Context;
