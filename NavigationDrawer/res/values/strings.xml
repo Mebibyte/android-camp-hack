@@ -24,4 +24,23 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
+
+    <string name="task_title">Add a Task</string>
+
+    <!-- New project label definitions -->
+    <string name="prompt_title" >Title</string>
+    <string name="prompt_desc" >Description</string>
+    <string name="prompt_tags" >Associated Tags</string>
+
+    <!-- Tag label definitions -->
+    <string name="level" >Importance</string>
+    <string name="level_bad" >Minor</string>
+    <string name="level_terrible" >Major</string>
+    <string name="type" >Issue Type</string>
+    <string name="type_bug" >Bug</string>
+    <string name="type_spec" >Spec</string>
+    <string name="end" > Project End</string>
+    <string name="end_front" >Front-End</string>
+    <string name="end_back" >Back-End</string>
+
 </resources>
