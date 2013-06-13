@@ -51,14 +51,30 @@ public class DrawPanel extends View {
     }
 
     public DrawPanel(Context context, AttributeSet attrbs) {
-        this(context);
+        super(context, attrbs);
+        mPaint = new Paint();
+        mPaint.setDither(true);
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setStrokeWidth(3);
+        setFocusable(true);
+        setWillNotDraw(false);
     }
 
     public DrawPanel(Context context, AttributeSet attrbs, int defStyle) {
-        this(context);
+        super(context, attrbs, defStyle);
+        mPaint = new Paint();
+        mPaint.setDither(true);
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setStrokeWidth(3);
+        setFocusable(true);
+        setWillNotDraw(false);
     }
-
-
 
     @Override
     public void onDraw(Canvas canvas) {
@@ -82,6 +98,7 @@ public class DrawPanel extends View {
                 event.getAction() == MotionEvent.ACTION_UP) {
             path.lineTo(event.getX(), event.getY());
         }
+        invalidate();
         return true;
     }
 }
