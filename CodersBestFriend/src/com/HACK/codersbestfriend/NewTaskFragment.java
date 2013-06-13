@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,6 +36,11 @@ public class NewTaskFragment extends CodersBestFragment {
      */
     public void onClick() {
         String title = ((EditText) getView().findViewById(R.id.task_title)).getText().toString();
+        if (title.length() == 0) {
+            ((TextView) getView().findViewById(R.id.error_message)).setText("Please enter a title");
+            return;
+        }
+        ((TextView) getView().findViewById(R.id.error_message)).setText("");
         Tag[] tags = new Tag[3];
         RadioGroup[] groups = {(RadioGroup) getView().findViewById(R.id.group1),
                 (RadioGroup) getView().findViewById(R.id.group2),
