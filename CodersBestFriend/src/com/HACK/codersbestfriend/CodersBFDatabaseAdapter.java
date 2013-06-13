@@ -36,7 +36,8 @@ public class CodersBFDatabaseAdapter {
 
         private static final String DATABASE_NAME = "data";
         private static final String DATABASE_TABLE = "tasks";
-        private static final int DATABASE_VERSION = 1;
+        private static final int DATABASE_VERSION = 2
+                ;
 
         /**
          * Database creation sql statement

@@ -1,7 +1,10 @@
 package com.HACK.codersbestfriend;
 
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
@@ -17,8 +20,14 @@ public class NewTaskFragment extends CodersBestFragment {
 
     public NewTaskFragment() {
         super(R.layout.fragment_new_task);
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         mDbAdapter = new CodersBFDatabaseAdapter(getActivity());
         mDbAdapter.open();
+        return view;
     }
 
     /*
@@ -40,5 +49,6 @@ public class NewTaskFragment extends CodersBestFragment {
         }
         Log.i("Tag", Arrays.toString(tags));
         Task task = new Task(title, Arrays.asList(tags));
+        mDbAdapter.createTask(task);
     }
 }
