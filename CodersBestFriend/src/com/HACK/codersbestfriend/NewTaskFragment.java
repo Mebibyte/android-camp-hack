@@ -1,11 +1,7 @@
 package com.HACK.codersbestfriend;
 
-import android.app.Fragment;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
@@ -17,14 +13,17 @@ import java.util.Collection;
  */
 public class NewTaskFragment extends CodersBestFragment{
     public static final Tag[][] TAGS = {{Tag.MINOR, Tag.MAJOR}, {Tag.BUG, Tag.SPEC}, {Tag.FRONT_END, Tag.BACK_END}};
+    private CodersBFDatabaseAdapter mDbAdapter;
 
     public NewTaskFragment() {
         super(R.layout.fragment_new_task);
+        mDbAdapter = new CodersBFDatabaseAdapter(getActivity());
+        mDbAdapter.open();
     }
 
     /*
- * Called when submit button is pressed
- */
+     * Called when submit button is pressed
+     */
     public void onClick(View view) {
         String title = ((EditText) getView().findViewById(R.id.task_title)).getText().toString();
         Tag[] tags = new Tag[3];
@@ -41,6 +40,5 @@ public class NewTaskFragment extends CodersBestFragment{
         }
         Log.i("Tag", Arrays.toString(tags));
         Task task = new Task(title, Arrays.asList(tags));
-        
     }
 }
