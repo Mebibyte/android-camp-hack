@@ -11,7 +11,7 @@ import java.util.Collection;
 /**
  * Created by demouser on 6/12/13.
  */
-public class NewTaskFragment extends CodersBestFragment{
+public class NewTaskFragment extends CodersBestFragment {
     public static final Tag[][] TAGS = {{Tag.MINOR, Tag.MAJOR}, {Tag.BUG, Tag.SPEC}, {Tag.FRONT_END, Tag.BACK_END}};
     private CodersBFDatabaseAdapter mDbAdapter;
 

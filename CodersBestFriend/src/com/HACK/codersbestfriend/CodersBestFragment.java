@@ -10,7 +10,6 @@ import android.view.ViewGroup;
  * Created by demouser on 6/12/13.
  */
 public class CodersBestFragment extends Fragment {
-    public static final String ARG_VIEW_NUMBER = "view_number";
     private int _resource;
 
     public CodersBestFragment(int resource) {
