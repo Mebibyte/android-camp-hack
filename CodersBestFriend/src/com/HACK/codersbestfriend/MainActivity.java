@@ -158,7 +158,7 @@ public class MainActivity extends Activity {
             case 0: // Tasks
                 _currentFragment = new TaskViewFragment();
                 break;
-            case 1: // Design/Drawing
+            case 1: // Design
                 _currentFragment = new CodersBestFragment(R.layout.activity_design);
                 break;
             case 2: // Timer
