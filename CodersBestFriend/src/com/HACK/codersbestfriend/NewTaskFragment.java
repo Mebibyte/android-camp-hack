@@ -33,7 +33,7 @@ public class NewTaskFragment extends CodersBestFragment {
     /*
      * Called when submit button is pressed
      */
-    public void onClick(View view) {
+    public void onClick() {
         String title = ((EditText) getView().findViewById(R.id.task_title)).getText().toString();
         Tag[] tags = new Tag[3];
         RadioGroup[] groups = {(RadioGroup) getView().findViewById(R.id.group1),
@@ -47,8 +47,6 @@ public class NewTaskFragment extends CodersBestFragment {
             int clicked = group.indexOfChild(radioButton);
             tags[i] = TAGS[i][clicked];
         }
-        Log.i("Tag", Arrays.toString(tags));
         Task task = new Task(title, Arrays.asList(tags));
-        mDbAdapter.createTask(task);
     }
 }

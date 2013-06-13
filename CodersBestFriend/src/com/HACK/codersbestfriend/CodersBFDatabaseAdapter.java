@@ -36,15 +36,14 @@ public class CodersBFDatabaseAdapter {
 
         private static final String DATABASE_NAME = "data";
         private static final String DATABASE_TABLE = "tasks";
-        private static final int DATABASE_VERSION = 2
-                ;
+        private static final int DATABASE_VERSION = 2;
 
         /**
          * Database creation sql statement
          */
         private static final String DATABASE_CREATE =
                 "create table "+DATABASE_TABLE+" (_id integer primary key autoincrement, "
-                        + "name text not null, tags text);";
+                        + "name text not null, tags text not null);";
 
         private final Context mCtx;
 
