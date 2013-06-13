@@ -41,7 +41,7 @@ public class TaskViewFragment extends ListFragment {
 
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.filter_list, R.layout.tasks_filter_list);
-        adapter2.setDropDownViewResource(R.layout.tasks_filter_list);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter2);
 
         data = new ArrayList<LinkedHashMap<String, String>>();

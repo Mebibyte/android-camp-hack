@@ -44,12 +44,13 @@
     <string name="end" > Project End</string>
     <string name="end_front" >Front-End</string>
     <string name="end_back" >Back-End</string>
+    <string name="category_prompt">Choose</string>
 
     <string-array name="filter_list">
         <item>Bug</item>
-        <item>Testing</item>
-        <item>Front End</item>
-        <item>Back End</item>
+        <item>Specification</item>
+        <item>Front-end</item>
+        <item>Back-end</item>
         <item>Minor</item>
         <item>Major</item>
     </string-array>
