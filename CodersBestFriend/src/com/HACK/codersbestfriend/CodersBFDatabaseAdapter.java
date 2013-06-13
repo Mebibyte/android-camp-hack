@@ -116,8 +116,9 @@ public class CodersBFDatabaseAdapter {
             StringBuilder tagString = new StringBuilder();
             for (Tag e:tags)
             {
-                tagString.append(e.toString()+" ");
+                tagString.append(e.toString()+", ");
             }
+            tagString.delete(tagString.length()-2,tagString.length());
             initialValues.put(KEY_TAGS, tagString.toString());
 
             long rowId = mDb.insert(DATABASE_TABLE, null, initialValues);
