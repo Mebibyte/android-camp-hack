@@ -35,11 +35,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 public class MainActivity extends Activity {
+    public static final Tags[][] TAGS = {{Tags.MINOR, Tags.MAJOR}, {Tags.BUG, Tags.SPEC}, {Tags.FRONT_END, Tags.BACK_END}};
+
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -142,6 +148,26 @@ public class MainActivity extends Activity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             selectItem(position);
         }
+    }
+
+    /*
+     * Called when submit button is pressed
+     */
+    public void submitTask(View view) {
+        String title = ((EditText) findViewById(R.id.task_title)).getText().toString();
+        Tags[] tags = new Tags[3];
+        RadioGroup[] groups = {(RadioGroup) findViewById(R.id.group1),
+                (RadioGroup) findViewById(R.id.group2),
+                (RadioGroup) findViewById(R.id.group3)};
+
+        for (int i = 0; i < 3; i++) {
+            RadioGroup group = groups[i];
+            int id = group.getCheckedRadioButtonId();
+            View radioButton = group.findViewById(id);
+            int clicked = group.indexOfChild(radioButton);
+            tags[i] = TAGS[i][clicked];
+        }
+        Log.i("Tags", Arrays.toString(tags));
     }
 
     private void selectItem(int position) {
