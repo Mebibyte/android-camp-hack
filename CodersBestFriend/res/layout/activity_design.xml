@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--suppress ALL -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -16,4 +16,33 @@
             android:layout_height="fill_parent"
             android:id="@+id/custom" />
 
-</RelativeLayout>
+    <Button android:id="@+id/pencilButton"
+            android:width="@dimen/button_size"
+            android:height="@dimen/button_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="@dimen/pencilX"
+            android:layout_y="@dimen/buttonY"
+            android:onClick="changeToPencil"
+            android:alpha="1"/>
+
+    <Button android:id="@+id/eraserButton"
+            android:width="@dimen/button_size"
+            android:height="@dimen/button_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="@dimen/eraserX"
+            android:layout_y="@dimen/buttonY"
+            android:onClick="changeToEraser"
+            android:alpha="1"/>
+
+    <Button android:id="@+id/rectangleButton"
+            android:layout_x="@dimen/rectangleX"
+            android:layout_y="@dimen/buttonY"
+            android:width="@dimen/button_size"
+            android:height="@dimen/button_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="changeToRectangle"
+            android:alpha="1"/>
+</AbsoluteLayout>

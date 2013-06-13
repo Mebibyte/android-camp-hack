@@ -8,8 +8,6 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -23,6 +21,21 @@ public class DrawPanel extends View {
     private Paint mPaint;
     private ArrayList<Path> paths = new ArrayList<Path>();
     private State state = State.DRAW;
+
+    public void toDraw()
+    {
+        state = State.DRAW;
+    }
+
+    public void toErase()
+    {
+        state = State.ERASE;
+    }
+
+    public void toRect()
+    {
+        state = State.RECTANGLE;
+    }
 
     public DrawPanel(Context context) {
         super(context);
@@ -57,7 +70,9 @@ public class DrawPanel extends View {
         }
     }
 
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
+        Log.d("AMITOUCHING", "IAMTOUCHING");
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
             path = new Path();
             path.moveTo(event.getX(), event.getY());

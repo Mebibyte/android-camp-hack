@@ -241,4 +241,20 @@ public class MainActivity extends Activity {
             return rootView;
         }
     }
+
+    //Methods for changing design state
+    public void changeToPencil(View view)
+    {
+
+    }
+
+    public void changeToEraser(View view)
+    {
+
+    }
+
+    public void changeToRectangle(View view)
+    {
+
+    }
 }
