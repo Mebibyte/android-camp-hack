@@ -10,6 +10,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Simple tasks database access helper class.
@@ -139,10 +141,20 @@ public class CodersBFDatabaseAdapter {
          *
          * @return Cursor over all tasks
          */
-        public Cursor fetchAllTasks() {
-
-            return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME,
+        public ArrayList<LinkedHashMap<String, String>> fetchAllTasks() {
+            Cursor query =  mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME,
                     KEY_TAGS}, null, null, null, null, null);
+
+            query.moveToFirst();
+            ArrayList<LinkedHashMap<String, String>> result = new ArrayList<LinkedHashMap<String, String>>();
+            for (int i=0;i<query.getCount();i++) {
+                LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+                map.put("Title", query.getString(1));
+                map.put("Category", query.getString(2));
+                result.add(map);
+            }
+
+            return result;
         }
 
         /**
