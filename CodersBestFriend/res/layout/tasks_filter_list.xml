@@ -4,4 +4,5 @@
           android:layout_height="60dp"
           android:textColor="#ff000000"
           android:textSize="@dimen/tasks_filter_list_item"
-          android:gravity="center"/>
+          android:gravity="center"
+          />
