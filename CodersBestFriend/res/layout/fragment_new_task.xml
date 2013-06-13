@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#c0bbbb">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/task_title"
+            android:id="@+id/task_title_main_head"
+            android:layout_gravity="center"
+            android:textSize="50dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="30dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/prompt_title"
+            android:id="@+id/task_title_head"
+            android:layout_gravity="center_horizontal|top"
+            android:textSize="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="18dp"/>
+
+    <EditText
+            android:id="@+id/task_title"
+            android:layout_height="wrap_content"
+            android:layout_width="400dp"
+            android:layout_gravity="center"/>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:gravity="right"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/prompt_tags"
+                android:id="@+id/task_tag_main_head"
+                android:layout_gravity="center_horizontal|top"
+                android:textSize="30dp"
+                android:layout_marginBottom="18dp"/>
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:gravity="center_horizontal">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="200dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="30dp">
+
+                <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/level"
+                        android:id="@+id/task_tag_level"
+                        android:textAlignment="center"
+                        android:textSize="25sp"
+                        android:textColor="#282727"/>
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/group1"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_alignTop="@+id/end_group"
+                            android:layout_alignParentRight="true"
+                            android:gravity="center_vertical">
+
+                    <RadioButton
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/level_bad"
+                            android:id="@+id/task_tag1"
+                            android:checked="true"
+                            android:textSize="20sp"
+                            android:layout_weight="0.3"
+                            android:layout_marginTop="15dp"
+                            android:textColor="#282727"/>
+
+                    <RadioButton
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/level_terrible"
+                            android:id="@+id/task_tag2"
+                            android:checked="false"
+                            android:textSize="20sp"
+                            android:layout_marginTop="15dp"
+                            android:textColor="#282727"/>
+
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="200dp"
+                    android:layout_height="fill_parent">
+
+                <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/type"
+                        android:id="@+id/task_tag_type"
+                        android:textSize="25sp"
+                        android:textColor="#282727"/>
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/group2"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_alignTop="@+id/end_group"
+                            android:layout_alignParentRight="true">
+
+                    <RadioButton
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type_bug"
+                            android:id="@+id/task_tag3"
+                            android:checked="true"
+                            android:textSize="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_weight="0.3"
+                            android:textColor="#282727"/>
+
+                    <RadioButton
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type_spec"
+                            android:id="@+id/task_tag4"
+                            android:checked="false"
+                            android:textSize="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_weight="0.3"
+                            android:textColor="#282727"/>
+
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="200dp"
+                    android:layout_height="fill_parent">
+
+                <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/end"
+                        android:id="@+id/textView4"
+                        android:textAlignment="center"
+                        android:textSize="25sp"
+                        android:textColor="#282727"/>
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/group3"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_alignTop="@+id/end_group"
+                            android:layout_alignParentRight="true">
+
+                    <RadioButton
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/end_front"
+                            android:id="@+id/task_tag5"
+                            android:checked="true"
+                            android:textSize="20dp"
+                            android:layout_marginTop="15dp"
+                            android:textColor="#282727"/>
+
+                    <RadioButton
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/end_back"
+                            android:id="@+id/task_tag6"
+                            android:checked="false"
+                            android:textSize="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_weight="0.3"
+                            android:textColor="#282727"/>
+
+                </RadioGroup>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Task"
+            android:id="@+id/button"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:onClick="submitTask"/>
+
+</LinearLayout>
