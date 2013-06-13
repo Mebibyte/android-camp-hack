@@ -8,6 +8,7 @@ import java.util.Collection;
 public class Task {
     private String _title;
     private Collection<Tag> _tags;
+    private int _rowID;
 
     public Task(String title, Collection<Tag> tags) {
         _title = title;
@@ -20,5 +21,13 @@ public class Task {
 
     public Collection<Tag> getTags() {
         return _tags;
+    }
+
+    public int getRowID() {
+        return _rowID;
+    }
+
+    public void setRowID(int row) {
+        _rowID = row;
     }
 }
