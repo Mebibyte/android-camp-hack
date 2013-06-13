@@ -15,8 +15,8 @@
   -->
 
 <resources>
-    <string name="app_name">Navigation Drawer Example</string>
-    <string-array name="planets_array">
+    <string name="app_name">Coder\'s Best Friend</string>
+    <string-array name="nav_items">
         <item>Tasks</item>
         <item>Design</item>
         <item>Add</item>
@@ -44,4 +44,12 @@
     <string name="end_front" >Front-End</string>
     <string name="end_back" >Back-End</string>
 
+    <string-array name="filter_list">
+        <item>Bug</item>
+        <item>Testing</item>
+        <item>Front End</item>
+        <item>Back End</item>
+        <item>Minor</item>
+        <item>Major</item>
+    </string-array>
 </resources>

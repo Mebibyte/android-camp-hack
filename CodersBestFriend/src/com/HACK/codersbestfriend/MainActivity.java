@@ -27,24 +27,16 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Arrays;
-
 public class MainActivity extends Activity {
-    public static final Tags[][] TAGS = {{Tags.MINOR, Tags.MAJOR}, {Tags.BUG, Tags.SPEC}, {Tags.FRONT_END, Tags.BACK_END}};
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -54,13 +46,16 @@ public class MainActivity extends Activity {
     private CharSequence mTitle;
     private String[] mPlanetTitles;
 
+    private Fragment _currentFragment;
+    public static final String ARG_VIEW_NUMBER = "view_number";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mTitle = mDrawerTitle = getTitle();
-        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+        mPlanetTitles = getResources().getStringArray(R.array.nav_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -150,52 +145,35 @@ public class MainActivity extends Activity {
         }
     }
 
-    /*
-     * Called when submit button is pressed
-     */
-    public void submitTask(View view) {
-        String title = ((EditText) findViewById(R.id.task_title)).getText().toString();
-        Tags[] tags = new Tags[3];
-        RadioGroup[] groups = {(RadioGroup) findViewById(R.id.group1),
-                (RadioGroup) findViewById(R.id.group2),
-                (RadioGroup) findViewById(R.id.group3)};
-
-        for (int i = 0; i < 3; i++) {
-            RadioGroup group = groups[i];
-            int id = group.getCheckedRadioButtonId();
-            View radioButton = group.findViewById(id);
-            int clicked = group.indexOfChild(radioButton);
-            tags[i] = TAGS[i][clicked];
-        }
-        Log.i("Tags", Arrays.toString(tags));
+    public void newTaskOnClick(View view) {
+        ((CodersBestFragment)_currentFragment).onClick();
     }
 
     private void selectItem(int position) {
         // update the main content by replacing fragments
-        Fragment fragment;
         Log.i("ITEM", position + "");
         switch(position) {
             case 0:
                 // Tasks
-                fragment = new ViewFragment();
+                _currentFragment = new TaskViewFragment();
                 break;
             case 1:
                 // Design/Drawing
-                fragment = new DesignFragment();
+                _currentFragment = new CodersBestFragment(R.layout.activity_design);
                 break;
             case 2:
                 // ADD (Just for testing)
-                fragment = new NewTaskFragment();
+                _currentFragment = new NewTaskFragment();
                 break;
             default:
-                fragment = new ViewFragment();
+                _currentFragment = new CodersBestFragment(R.layout.activity_main);
         }
         Bundle args = new Bundle();
-        args.putInt(ViewFragment.ARG_VIEW_NUMBER, position);
-        fragment.setArguments(args);
+        args.putInt(ARG_VIEW_NUMBER, position);
+        _currentFragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
@@ -226,45 +204,5 @@ public class MainActivity extends Activity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    /**
-     * Fragment that appears in the "content_frame", shows a planet
-     */
-    public static class ViewFragment extends Fragment {
-        public static final String ARG_VIEW_NUMBER = "view_number";
-
-        public ViewFragment() {
-            // Empty constructor required for fragment subclasses
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-            int i = getArguments().getInt(ARG_VIEW_NUMBER);
-            String newView = getResources().getStringArray(R.array.planets_array)[i];
-            ((TextView) rootView.findViewById(R.id.textView)).setText(newView);
-            getActivity().setTitle(newView);
-            return rootView;
-        }
-    }
-
-    public static class DesignFragment extends Fragment {
-        public static final String ARG_VIEW_NUMBER = "view_number";
-
-        public DesignFragment() {
-            // Empty constructor required for fragment subclasses
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.activity_design, container, false);
-            int i = getArguments().getInt(ARG_VIEW_NUMBER);
-            String newView = getResources().getStringArray(R.array.planets_array)[i];
-            getActivity().setTitle(newView);
-            return rootView;
-        }
     }
 }
