@@ -145,6 +145,7 @@ public class MainActivity extends Activity {
         }
     }
 
+    // We can cast this because this is the onClick method of the NewTask view
     public void newTaskOnClick(View view) {
         ((CodersBestFragment)_currentFragment).onClick();
     }
