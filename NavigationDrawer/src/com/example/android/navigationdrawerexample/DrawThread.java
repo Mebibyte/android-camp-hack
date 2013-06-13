@@ -1,6 +1,7 @@
 package com.example.android.navigationdrawerexample;
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 public class DrawThread extends Thread {

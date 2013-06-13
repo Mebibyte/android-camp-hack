@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * Simple tasks database access helper class.
  *
@@ -101,27 +106,34 @@ public class CodersBFDatabaseAdapter {
          * successfully created return the new rowId for that note, otherwise return
          * a -1 to indicate failure.
          *
-         * @param name the title of the task
-         * @param tags the body of the task
+         * @param task the task
          * @return rowId or -1 if failed
          */
-        public long createTask(String name, String tags) {
+        public long createTask(Task task) {
             ContentValues initialValues = new ContentValues();
-            initialValues.put(KEY_NAME, name);
-            initialValues.put(KEY_TAGS, tags);
+            initialValues.put(KEY_NAME, task.getTitle());
+            Collection<Tag> tags = task.getTags();
+            StringBuilder tagString = new StringBuilder();
+            for (Tag e:tags)
+            {
+                tagString.append(e.toString()+" ");
+            }
+            initialValues.put(KEY_TAGS, tagString.toString());
 
-            return mDb.insert(DATABASE_TABLE, null, initialValues);
+            long rowId = mDb.insert(DATABASE_TABLE, null, initialValues);
+            task.setRowID(rowId);
+            return rowId;
         }
 
         /**
          * Delete the task with the given rowId
          *
-         * @param rowId id of note to delete
+         * @param task task to be deleted
          * @return true if deleted, false otherwise
          */
-        public boolean deleteTask(long rowId) {
+        public boolean deleteTask(Task task) {
 
-            return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+            return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + task.getRowID(), null) > 0;
         }
 
         /**
@@ -129,10 +141,20 @@ public class CodersBFDatabaseAdapter {
          *
          * @return Cursor over all tasks
          */
-        public Cursor fetchAllTasks() {
-
-            return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME,
+        public ArrayList<LinkedHashMap<String, String>> fetchAllTasks() {
+            Cursor query =  mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME,
                     KEY_TAGS}, null, null, null, null, null);
+
+            query.moveToFirst();
+            ArrayList<LinkedHashMap<String, String>> result = new ArrayList<LinkedHashMap<String, String>>();
+            for (int i=0;i<query.getCount();i++) {
+                LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+                map.put("Title", query.getString(1));
+                map.put("Category", query.getString(2));
+                result.add(map);
+            }
+
+            return result;
         }
 
         /**

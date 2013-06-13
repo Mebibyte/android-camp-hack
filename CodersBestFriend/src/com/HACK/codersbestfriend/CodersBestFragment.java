@@ -10,7 +10,10 @@ import android.view.ViewGroup;
  * Created by demouser on 6/12/13.
  */
 public class CodersBestFragment extends Fragment {
+<<<<<<< HEAD
     public static final String ARG_VIEW_NUMBER = "view_number";
+=======
+>>>>>>> 84403407758375bb3f52b1a00a34b1d1dab9fc7a
     private int _resource;
 
     public CodersBestFragment(int resource) {
@@ -22,11 +25,18 @@ public class CodersBestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(_resource, container, false);
+<<<<<<< HEAD
         //Log.d("FRAGMENT", (rootView.findViewById(R.id.drawPanel) == null) + "");
+=======
+>>>>>>> 84403407758375bb3f52b1a00a34b1d1dab9fc7a
         return rootView;
     }
 
     public void onClick() {
         //Blah
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 84403407758375bb3f52b1a00a34b1d1dab9fc7a

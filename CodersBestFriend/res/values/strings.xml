@@ -15,15 +15,16 @@
   -->
 
 <resources>
-    <string name="app_name">Navigation Drawer Example</string>
-    <string-array name="planets_array">
+    <string name="app_name">Coder\'s Best Friend</string>
+    <string-array name="nav_items">
         <item>Tasks</item>
         <item>Design</item>
+        <item>Timer</item>
         <item>Add</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="action_websearch">Web search</string>
+    <string name="timer">"3:14"</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
 
     <string name="task_title">Add a Task</string>
@@ -43,5 +44,14 @@
     <string name="end" > Project End</string>
     <string name="end_front" >Front-End</string>
     <string name="end_back" >Back-End</string>
+    <string name="category_prompt">Choose</string>
 
+    <string-array name="filter_list">
+        <item>Bug</item>
+        <item>Specification</item>
+        <item>Front-end</item>
+        <item>Back-end</item>
+        <item>Minor</item>
+        <item>Major</item>
+    </string-array>
 </resources>
