@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private String[] mPlanetTitles;
+    private String[] mFragmentTitles;
 
     private Fragment _currentFragment;
     public static final String ARG_VIEW_NUMBER = "view_number";
@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mTitle = mDrawerTitle = getTitle();
-        mPlanetTitles = getResources().getStringArray(R.array.nav_items);
+        mFragmentTitles = getResources().getStringArray(R.array.nav_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mPlanetTitles));
+                R.layout.drawer_list_item, mFragmentTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -108,7 +108,7 @@ public class MainActivity extends Activity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+        // menu.findItem(R.id.timer).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -121,16 +121,16 @@ public class MainActivity extends Activity {
         }
         // Handle action buttons
         switch(item.getItemId()) {
-            case R.id.action_websearch:
-                // create intent to perform web search for this planet
-                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
-                // catch event that there's no activity to handle intent
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
-                }
+            case R.id.timer:
+                _currentFragment = new CodersBestFragment(R.layout.fragment_timer);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
+
+                // update selected item and title, then close the drawer
+                mDrawerList.setItemChecked(2, true);
+                setTitle(mFragmentTitles[2]);
+                mDrawerLayout.closeDrawer(mDrawerList);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -160,7 +160,10 @@ public class MainActivity extends Activity {
             case 1: // Design/Drawing
                 _currentFragment = new CodersBestFragment(R.layout.activity_design);
                 break;
-            case 2: // ADD (Just for testing)
+            case 2: // Timer
+                _currentFragment = new CodersBestFragment(R.layout.fragment_timer);
+                break;
+            case 3: // ADD (Just for testing)
                 _currentFragment = new NewTaskFragment();
                 break;
             default:
@@ -175,7 +178,7 @@ public class MainActivity extends Activity {
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
-        setTitle(mPlanetTitles[position]);
+        setTitle(mFragmentTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
