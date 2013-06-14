@@ -145,8 +145,10 @@ public class CodersBFDatabaseAdapter {
         public ArrayList<LinkedHashMap<String, String>> fetchAllTasks() {
             Cursor query =  mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME,
                     KEY_TAGS}, null, null, null, null, null);
+
+            query.moveToFirst();
             ArrayList<LinkedHashMap<String, String>> result = null;
-            if (query!= null){
+            if (query != null) {
                 result = createListFromCursor(query);
             } else {
                 Log.e("HACK", "DB query null");

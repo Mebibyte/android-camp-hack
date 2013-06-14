@@ -6,28 +6,38 @@ import java.util.Collection;
  * Created by demouser on 6/13/13.
  */
 public class Task {
-    private String _title;
-    private Collection<Tag> _tags;
-    private long _rowID;
+    private String mTitle;
+    private Collection<Tag> mTags;
+    private long mID;
 
     public Task(String title, Collection<Tag> tags) {
-        _title = title;
-        _tags = tags;
+        mTitle = title;
+        mTags = tags;
+    }
+
+    public Task(String title, String tags) {
+        mTitle = title;
+        String[] tag = tags.split(",");
+        for (String t : tag) mTags.add(Tag.toTag(t));
     }
 
     public String getTitle() {
-        return _title;
+        return mTitle;
     }
 
     public Collection<Tag> getTags() {
-        return _tags;
+        return mTags;
     }
 
     public long getRowID() {
-        return _rowID;
+        return mID;
     }
 
     public void setRowID(long row) {
-        _rowID = row;
+        mID = row;
+    }
+
+    public boolean hasTag(String tag) {
+        return mTags.contains(Tag.toTag(tag));
     }
 }
