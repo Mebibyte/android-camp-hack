@@ -44,9 +44,11 @@ public class TaskViewFragment extends ListFragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                data = TaskManager.filter(dbApdater.fetchAllTasks(), (String)adapterView.getItemAtPosition(i));
+                Log.i("TASK", "" + "safjaslkfjaslkfjaslfkj");
                 for (LinkedHashMap<String, String> item : dbApdater.fetchAllTasks())
                     Log.i("TASK", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
+                data = TaskManager.filter(dbApdater.fetchAllTasks(), (String)adapterView.getItemAtPosition(i));
+
             }
 
             @Override
@@ -65,11 +67,10 @@ public class TaskViewFragment extends ListFragment {
 
         dbApdater = new CodersBFDatabaseAdapter(getActivity());
         dbApdater.open();
-        data = dbApdater.fetchAllTasks();
 
         adapter = new SimpleAdapter(getActivity(), data,
                 R.layout.tasks_row,
-                new String[] {"Title", "Tag"},
+                new String[] {"Title", "Tags"},
                 new int[] {android.R.id.text1,
                            android.R.id.text2});
         setListAdapter(adapter);
