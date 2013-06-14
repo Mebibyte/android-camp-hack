@@ -11,7 +11,7 @@
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_gravity="center"
                 android:background="@drawable/tasks_header"
-                android:gravity="center">
+                android:gravity="center|right">
 
             <Spinner
                     android:layout_width="200dp"
@@ -21,6 +21,21 @@
                     android:gravity="center"
                     android:spinnerMode="dialog"
                     android:prompt="@string/category_prompt"/>
+
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/add_event_button"
+                    android:src="@drawable/plus"
+                    android:background="@null"
+                    android:layout_gravity="bottom|right"
+                    android:clickable="true"
+                    android:onClick="newTaskSpawn"
+                    android:paddingEnd="0dp"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"/>
+
         </LinearLayout>
 
     <LinearLayout

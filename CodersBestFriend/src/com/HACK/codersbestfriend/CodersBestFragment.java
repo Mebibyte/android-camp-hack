@@ -10,6 +10,7 @@ import android.view.ViewGroup;
  * Created by demouser on 6/12/13.
  */
 public class CodersBestFragment extends Fragment {
+
     private int _resource;
 
     public CodersBestFragment(int resource) {
@@ -24,7 +25,8 @@ public class CodersBestFragment extends Fragment {
         return rootView;
     }
 
-    public void onClick() {
+    public void onClick(String string) {
         //Blah
     }
 }
+

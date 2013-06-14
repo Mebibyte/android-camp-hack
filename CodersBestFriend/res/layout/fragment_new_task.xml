@@ -3,8 +3,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#c0bbbb">
+              android:layout_height="match_parent">
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:id="@+id/imageButton"
+            android:layout_gravity="bottom|left"
+            android:src="@drawable/back"
+            android:background="@null"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:onClick="newTaskFinish"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -14,7 +24,6 @@
             android:id="@+id/task_title_main_head"
             android:layout_gravity="center"
             android:textSize="50dp"
-            android:layout_marginTop="60dp"
             android:layout_marginBottom="30dp"/>
     <TextView
             android:layout_width="wrap_content"
@@ -212,6 +221,15 @@
             android:id="@+id/button"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:onClick="newTaskOnClick"/>
+            android:onClick="newTaskCreate"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/error_message"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#9c0f15"/>
 
 </LinearLayout>
