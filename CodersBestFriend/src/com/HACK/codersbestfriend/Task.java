@@ -15,6 +15,12 @@ public class Task {
         _tags = tags;
     }
 
+    public Task(String title, String tags) {
+        _title = title;
+        String[] tag = tags.split(",");
+        for (String t : tag) _tags.add(Tag.toTag(t));
+    }
+
     public String getTitle() {
         return _title;
     }
@@ -29,5 +35,9 @@ public class Task {
 
     public void setRowID(long row) {
         _rowID = row;
+    }
+
+    public boolean hasTag(String tag) {
+        return _tags.contains(Tag.toTag(tag));
     }
 }

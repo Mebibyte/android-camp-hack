@@ -175,7 +175,7 @@ public class MainActivity extends Activity {
         _currentFragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
+        fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, _currentFragment).commit();
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);

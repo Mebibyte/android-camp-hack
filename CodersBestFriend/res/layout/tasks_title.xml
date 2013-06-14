@@ -1,0 +1,8 @@
+<TextView android:id="@+id/tasks_title"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/tasks_row_height"
+          android:background="@drawable/tasks_border"
+          android:textColor="#ffffff"
+          android:textSize="@dimen/tasks_name"
+        />
