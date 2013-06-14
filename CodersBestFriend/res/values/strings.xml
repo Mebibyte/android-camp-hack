@@ -45,8 +45,9 @@
     <string name="category_prompt">Choose a tag</string>
 
     <string-array name="filter_list">
+        <item>All</item>
         <item>Bug</item>
-        <item>Specification</item>
+        <item>Spec</item>
         <item>Front-end</item>
         <item>Back-end</item>
         <item>Minor</item>
@@ -56,5 +57,6 @@
     <!-- Timer -->
     <string name="timer">"Set Timer"</string>
     <string name="timer_button">"Start Timer"</string>
+    <string name="timer_button_stop">"Stop Timer"</string>
     <string name="timer_error">""</string>
 </resources>
