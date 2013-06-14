@@ -13,10 +13,9 @@ public class TaskManager {
         ArrayList<LinkedHashMap<String, String>> ans = new ArrayList<LinkedHashMap<String, String>>();
         if (tasks == null) return ans;
         for (LinkedHashMap<String, String> item : tasks) {
-
-            //Log.i("TASK", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
-            if (!item.get("Title").equals("") && !item.get("Tag").equals("")) {
-                Task task = new Task(item.get("Title"), item.get("Tag"));
+            Log.i("TASK", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tags"));
+            if (!item.get("Title").equals("") && !item.get("Tags").equals("")) {
+                Task task = new Task(item.get("Title"), item.get("Tags"));
                 if (task.hasTag(tag)) ans.add(item);
             }
         }
