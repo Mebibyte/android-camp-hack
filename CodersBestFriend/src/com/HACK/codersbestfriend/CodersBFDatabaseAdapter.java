@@ -148,13 +148,11 @@ public class CodersBFDatabaseAdapter {
                     KEY_TAGS}, null, null, null, null, null);
 
             query.moveToFirst();
-            ArrayList<LinkedHashMap<String, String>> result = new ArrayList<LinkedHashMap<String, String>>();
-            for (int i=0;i<query.getCount();i++) {
-                LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-                Log.d("FETCH", "Title = " + query.getString(1) + " Tag = " + query.getString(2));
-                map.put("Title", query.getString(1));
-                map.put("Tag", query.getString(2));
-                result.add(map);
+            ArrayList<LinkedHashMap<String, String>> result = null;
+            if (query != null) {
+                result = createListFromCursor(query);
+            } else {
+                Log.e("HACK", "DB query null");
             }
             return result;
         }

@@ -26,8 +26,7 @@ public class NewTaskFragment extends CodersBestFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        mDbAdapter = new CodersBFDatabaseAdapter(getActivity());
-        mDbAdapter.open();
+        mDbAdapter = ((MainActivity) getActivity()).getAdapter();
         return view;
     }
 

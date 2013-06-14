@@ -20,7 +20,8 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
                     android:spinnerMode="dialog"
-                    android:prompt="@string/category_prompt"/>
+                    android:prompt="@string/category_prompt"
+                    android:layout_marginRight="45dp"/>
 
             <ImageButton
                     android:layout_width="wrap_content"
