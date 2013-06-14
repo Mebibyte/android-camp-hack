@@ -9,7 +9,7 @@
      <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter an amount of time in minutes"
+            android:text="Enter an amount of time in seconds:"
             android:id="@+id/textView"
             android:layout_gravity="center"
             android:textSize="20dp"/>
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/timerEditText"
             android:layout_gravity="center"/>
 
     <Button
@@ -27,7 +27,16 @@
             android:layout_height="wrap_content"
             android:text="@string/timer_button"
             android:id="@+id/button"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:onClick="startTimer"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/timer_error"
+            android:id="@+id/timer_error_text"
+            android:layout_gravity="center"
+            android:textColor="#ab0000"/>
 
 
 </LinearLayout>

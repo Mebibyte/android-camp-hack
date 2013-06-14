@@ -54,6 +54,7 @@
     </string-array>
 
     <!-- Timer -->
-    <string name="timer">"3:14"</string>
+    <string name="timer">"Set Timer"</string>
     <string name="timer_button">"Start Timer"</string>
+    <string name="timer_error">""</string>
 </resources>

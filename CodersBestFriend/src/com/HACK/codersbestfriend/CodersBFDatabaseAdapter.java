@@ -120,6 +120,7 @@ public class CodersBFDatabaseAdapter {
             }
             tagString.delete(tagString.length()-2,tagString.length());
             initialValues.put(KEY_TAGS, tagString.toString());
+            Log.d("ADD", initialValues.toString());
 
             long rowId = mDb.insert(DATABASE_TABLE, null, initialValues);
             task.setRowID(rowId);
@@ -132,9 +133,9 @@ public class CodersBFDatabaseAdapter {
          * @param task task to be deleted
          * @return true if deleted, false otherwise
          */
-        public boolean deleteTask(Task task) {
-
-            return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + task.getRowID(), null) > 0;
+        public boolean deleteTask(LinkedHashMap<String, String> task) {
+            Log.i("DELTE", "" + task.get("Title"));
+            return mDb.delete(DATABASE_TABLE, KEY_NAME + "='" + task.get("Title") + "'", null) > 0;
         }
 
         /**
@@ -202,7 +203,7 @@ public class CodersBFDatabaseAdapter {
             for (int i=0;i<cursor.getCount();i++) {
                 LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
                 map.put("Title", cursor.getString(1));
-                map.put("Category", cursor.getString(2));
+                map.put("Tags", cursor.getString(2));
                 result.add(map);
                 cursor.moveToNext();
             }
