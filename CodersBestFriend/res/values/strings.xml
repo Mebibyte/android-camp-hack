@@ -24,7 +24,6 @@
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="timer">"3:14"</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
 
     <string name="task_title">Add a Task</string>
@@ -54,4 +53,8 @@
         <item>Minor</item>
         <item>Major</item>
     </string-array>
+
+    <!-- Timer -->
+    <string name="timer">"3:14"</string>
+    <string name="timer_button">"Start Timer"</string>
 </resources>
