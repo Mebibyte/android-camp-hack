@@ -11,13 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 public class TaskViewFragment extends ListFragment {
 
@@ -44,7 +40,7 @@ public class TaskViewFragment extends ListFragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.i("SOMETHIG", "asdfslkaj");
+                Log.i("SOMETHING", "asdfslkaj");
                 //for (LinkedHashMap<String, String> item : dbApdater.fetchAllTasks())
                     //Log.i("TASK", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
                 data = TaskManager.filter(dbApdater.fetchAllTasks(), (String)adapterView.getItemAtPosition(i));
@@ -91,7 +87,7 @@ public class TaskViewFragment extends ListFragment {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    dbApdater.deleteTask((LinkedHashMap)adapter.getItem(position));
+                                    dbApdater.deleteTask((LinkedHashMap) adapter.getItem(position));
                                     Log.i("SOMETHING", "sldfjsdlkfj" + " " + data.size());
                                     for (LinkedHashMap<String, String> item : data)
                                         Log.i("DELETE", "" + "Title " + item.get("Title") + " Tags: " + item.get("Tags"));
@@ -114,8 +110,8 @@ public class TaskViewFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        Toast.makeText(getActivity(),
+        /*Toast.makeText(getActivity(),
                 "Clicked " + getListAdapter().getItem(position).toString(),
-                Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_SHORT).show();*/
     }
 }

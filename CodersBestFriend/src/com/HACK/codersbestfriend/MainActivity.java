@@ -67,6 +67,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         mTitle = mDrawerTitle = getTitle();
         mFragmentTitles = getResources().getStringArray(R.array.nav_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -138,9 +140,9 @@ public class MainActivity extends Activity {
         // Handle action buttons
         switch(item.getItemId()) {
             case R.id.timer:
-                if (timerRunning) {
+                if (timerRunning)
                     mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
-                } else {
+                else {
                     mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer);
                 }
 
@@ -385,5 +387,21 @@ public class MainActivity extends Activity {
 
     public CodersBFDatabaseAdapter getAdapter() {
         return mDbAdapter;
+    }
+
+    public void onStart() {
+        mCurrentFragment = new CodersBestFragment(R.layout.home);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
+
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                mCurrentFragment = new TaskViewFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
+            }
+        }, 3500);
+        super.onStart();
     }
 }

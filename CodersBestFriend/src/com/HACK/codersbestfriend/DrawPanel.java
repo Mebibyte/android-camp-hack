@@ -152,11 +152,11 @@ public class DrawPanel extends View {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(mCanvas == null)
+        /*if(mCanvas == null)
         {
             mCanvas = canvas;
             canvas.setBitmap(bmp);
-        }
+        }*/
         canvas.drawColor(Color.WHITE);
         for(DrawPath path: paths)
         {
