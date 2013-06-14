@@ -1,16 +1,17 @@
 package com.HACK.codersbestfriend;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * Created by demouser on 6/12/13.
@@ -18,6 +19,7 @@ import java.util.Collection;
 public class NewTaskFragment extends CodersBestFragment {
     public static final Tag[][] TAGS = {{Tag.MINOR, Tag.MAJOR}, {Tag.BUG, Tag.SPEC}, {Tag.FRONT_END, Tag.BACK_END}};
     private CodersBFDatabaseAdapter mDbAdapter;
+    private EditText mTitle;
 
     public NewTaskFragment() {
         super(R.layout.fragment_new_task);
@@ -27,6 +29,11 @@ public class NewTaskFragment extends CodersBestFragment {
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mDbAdapter = ((MainActivity) getActivity()).getAdapter();
+        mTitle = (EditText) view.findViewById(R.id.task_title);
+        mTitle.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+        //Log.d("Soft input", b + "");
         return view;
     }
 
@@ -34,7 +41,7 @@ public class NewTaskFragment extends CodersBestFragment {
      * Called when submit button is pressed
      */
     public void onClick(String string) {
-        String title = ((EditText) getView().findViewById(R.id.task_title)).getText().toString();
+        String title = mTitle.getText().toString();
         if (title.length() == 0) {
             ((TextView) getView().findViewById(R.id.error_message)).setText("Please enter a title");
             return;
