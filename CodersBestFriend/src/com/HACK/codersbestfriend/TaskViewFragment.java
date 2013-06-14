@@ -44,10 +44,16 @@ public class TaskViewFragment extends ListFragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                for (LinkedHashMap<String, String> item : dbApdater.fetchAllTasks())
-                    Log.i("TASK", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
+                Log.i("SOMETHIG", "asdfslkaj");
+                //for (LinkedHashMap<String, String> item : dbApdater.fetchAllTasks())
+                    //Log.i("TASK", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
                 data = TaskManager.filter(dbApdater.fetchAllTasks(), (String)adapterView.getItemAtPosition(i));
-
+                adapter = new SimpleAdapter(getActivity(), data,
+                        R.layout.tasks_row,
+                        new String[] {"Title", "Tags"},
+                        new int[] {android.R.id.text1,
+                                android.R.id.text2});
+                setListAdapter(adapter);
             }
 
             @Override
@@ -86,13 +92,20 @@ public class TaskViewFragment extends ListFragment {
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
                                     dbApdater.deleteTask((LinkedHashMap)adapter.getItem(position));
+                                    Log.i("SOMETHING", "sldfjsdlkfj" + " " + data.size());
                                     for (LinkedHashMap<String, String> item : data)
-                                        Log.i("TAS", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
+                                        Log.i("DELETE", "" + "Title " + item.get("Title") + " Tags: " + item.get("Tags"));
                                     data.remove(adapter.getItem(position));
                                     for (LinkedHashMap<String, String> item : data)
-                                        Log.i("TAS", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
+                                        Log.i("DELETE", "" + "Title: " + item.get("Title") + " Tags: " + item.get("Tags"));
+                                    adapter = new SimpleAdapter(getActivity(), data,
+                                            R.layout.tasks_row,
+                                            new String[] {"Title", "Tags"},
+                                            new int[] {android.R.id.text1,
+                                                    android.R.id.text2});
+                                    setListAdapter(adapter);
                                 }
-                                adapter.notifyDataSetChanged();
+                                //adapter.notifyDataSetChanged();
                             }
                         });
         listView.setOnTouchListener(touchListener);
