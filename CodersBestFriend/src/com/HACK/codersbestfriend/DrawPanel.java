@@ -19,8 +19,11 @@ enum State {
 public class DrawPanel extends View {
     private Path path;
     private Bitmap bmp;
-    private Paint mPaint, rPaint, ePaint;
+    //Mpaint is for drawing, R paint is for rectangles, E paint is for erasing, B paint is for
+    //the block of white at the bottom
+    private Paint mPaint, rPaint, ePaint, bPaint;
     private ArrayList<DrawPath> paths = new ArrayList<DrawPath>();
+    private ArrayList<DrawPath> backupPaths = new ArrayList<DrawPath>();
     private State state = State.DRAW;
     private float highlightX;
     private float startX, startY;
@@ -46,6 +49,30 @@ public class DrawPanel extends View {
         invalidate();
     }
 
+    public void undo()
+    {
+        if(paths.size() == 0)
+        {
+            if(backupPaths.size() > 0)
+            {
+                paths = backupPaths;
+                backupPaths = new ArrayList<DrawPath>();
+            }
+        }
+        else
+        {
+            paths.remove(paths.size()-1);
+        }
+        invalidate();
+    }
+
+    public void clear()
+    {
+        backupPaths = paths;
+        paths = new ArrayList<DrawPath>();
+        invalidate();
+    }
+
     public DrawPanel(Context context) {
         super(context);
         rPaint = new Paint();
@@ -63,6 +90,9 @@ public class DrawPanel extends View {
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(3);
+        bPaint = new Paint();
+        bPaint.setColor(Color.WHITE);
+        bPaint.setStyle(Paint.Style.FILL);
         highlightX = 23;
         setFocusable(true);
         setWillNotDraw(false);
@@ -85,6 +115,9 @@ public class DrawPanel extends View {
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(3);
+        bPaint = new Paint();
+        bPaint.setColor(Color.WHITE);
+        bPaint.setStyle(Paint.Style.FILL);
         highlightX = 23;
         setFocusable(true);
         setWillNotDraw(false);
@@ -107,6 +140,9 @@ public class DrawPanel extends View {
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(3);
+        bPaint = new Paint();
+        bPaint.setColor(Color.WHITE);
+        bPaint.setStyle(Paint.Style.FILL);
         highlightX = 23;
         setFocusable(true);
         setWillNotDraw(false);
@@ -120,6 +156,7 @@ public class DrawPanel extends View {
         {
             canvas.drawPath(path.getPath(), path.getPaint());
         }
+        canvas.drawRect(0, 980, 1500, 1500, bPaint);
         canvas.drawRect(highlightX,980,highlightX + 110,1090, mPaint);
     }
 
