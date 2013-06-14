@@ -47,6 +47,8 @@ public class MainActivity extends Activity {
     private String[] mFragmentTitles;
 
     private Fragment _currentFragment;
+
+    private DrawPanel draw;
     public static final String ARG_VIEW_NUMBER = "view_number";
 
     @Override
@@ -267,16 +269,19 @@ public class MainActivity extends Activity {
     //Methods for changing design state
     public void changeToPencil(View view)
     {
-
+        draw = (DrawPanel)_currentFragment.getView().findViewById(R.id.drawPanel);
+        draw.toDraw();
     }
 
     public void changeToEraser(View view)
     {
-
+        draw = (DrawPanel)_currentFragment.getView().findViewById(R.id.drawPanel);
+        draw.toErase();
     }
 
     public void changeToRectangle(View view)
     {
-
+        draw = (DrawPanel)_currentFragment.getView().findViewById(R.id.drawPanel);
+        draw.toRect();
     }
 }
