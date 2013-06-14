@@ -6,11 +6,12 @@
     <TextView android:id="@android:id/text1"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:layout_marginLeft="6dip"
-              android:layout_marginTop="6dip"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_marginTop="10dp"
               android:layout_marginBottom="5dp"
               android:textAppearance="?android:attr/textAppearanceLarge"
-              android:textColor="#fff8edff"
+              android:textColor="@color/pro_blue"
               android:textSize="25dp"
             />
 
@@ -20,8 +21,10 @@
               android:layout_below="@android:id/text1"
               android:layout_alignLeft="@android:id/text1"
               android:textAppearance="?android:attr/textAppearanceSmall"
-              android:textColor="#fff8edff"
+              android:textColor="@color/pro_blue"
               android:layout_marginTop="3dp"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
               android:textSize="15dp"
             />
 
