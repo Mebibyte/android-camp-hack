@@ -19,8 +19,12 @@ package com.HACK.codersbestfriend;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -33,8 +37,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -49,6 +55,7 @@ public class MainActivity extends Activity {
     private Fragment _currentFragment;
 
     private DrawPanel draw;
+    private MenuItem m_timerMenuItem;
     public static final String ARG_VIEW_NUMBER = "view_number";
 
     @Override
@@ -102,6 +109,7 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+        this.m_timerMenuItem = menu.getItem(0);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -224,6 +232,35 @@ public class MainActivity extends Activity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggles
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    public void startTimer(View view) {
+        final Handler h = new Handler();
+        final Context c = this;
+        String timeText = ((EditText) findViewById(R.id.timerEditText)).getText().toString();
+        if (!timeText.equals("")) {
+            ((TextView) findViewById(R.id.timer_error_text)).setText("");
+            final int time = Integer.parseInt(timeText);
+            Runnable r = new Runnable() {
+                long m_startTime = System.currentTimeMillis();
+                long m_endTime = m_startTime + 1000*time;
+
+                @Override
+                public void run() {
+                    if ( System.currentTimeMillis() < m_endTime ) {
+                        // if the time hasn't elapsed
+                        h.postDelayed(this, 1000);
+                        // update the actionBar
+                        m_timerMenuItem.setTitle(Long.toString(time + ((m_startTime - System.currentTimeMillis())/1000)));
+                    } else {
+                        Toast.makeText(c, "Timer Done!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            };
+            h.postDelayed(r, 1000);
+        } else {
+            ((TextView) findViewById(R.id.timer_error_text)).setText("Enter a time!");
+        }
     }
 
     /**
