@@ -23,6 +23,10 @@ public class CodersBestFragment extends Fragment {
         _resource = resource;
     }
 
+    public int getResource() {
+        return _resource;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

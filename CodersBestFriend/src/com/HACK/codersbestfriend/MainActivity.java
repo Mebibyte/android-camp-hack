@@ -192,6 +192,11 @@ public class MainActivity extends Activity {
     private void selectItem(int position) {
         // update the main content by replacing fragments
         Log.i("ITEM", position + "");
+        if (mCurrentFragment instanceof CodersBestFragment) {
+            if (((CodersBestFragment) mCurrentFragment).getResource() == R.layout.activity_design) {
+                //(DrawPanel)(mCurrentFragment.getView().findViewById(R.id.drawPanel).closing());
+            }
+        }
         switch(position) {
             case 0: // Tasks
                 mCurrentFragment = new TaskViewFragment();
