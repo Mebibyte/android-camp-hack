@@ -44,6 +44,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends Activity {
 
     private DrawerLayout mDrawerLayout;
@@ -61,6 +64,10 @@ public class MainActivity extends Activity {
     private MenuItem m_timerMenuItem;
     private boolean timerRunning;
     public static final String ARG_VIEW_NUMBER = "view_number";
+
+    public List<DrawPath> paths = new ArrayList<DrawPath>();
+    public List<DrawPath> backupPaths = new ArrayList<DrawPath>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,7 +207,7 @@ public class MainActivity extends Activity {
         Log.i("ITEM", position + "");
         if (mCurrentFragment instanceof CodersBestFragment) {
             if (((CodersBestFragment) mCurrentFragment).getResource() == R.layout.activity_design) {
-                //(DrawPanel)(mCurrentFragment.getView().findViewById(R.id.drawPanel).closing());
+                ((DrawPanel)(mCurrentFragment.getView().findViewById(R.id.drawPanel))).closing(this);
             }
         }
         switch(position) {
@@ -209,6 +216,8 @@ public class MainActivity extends Activity {
                 break;
             case 1: // Design
                 mCurrentFragment = new CodersBestFragment(R.layout.activity_design);
+                //((CodersBestFragment)mCurrentFragment).setPaths(paths);
+                //((CodersBestFragment)mCurrentFragment).setBackupPaths(paths);
                 break;
             case 2: // Timer
                 if (timerRunning) {
@@ -404,4 +413,21 @@ public class MainActivity extends Activity {
         }, 3500);
         super.onStart();
     }
+
+    public void setPaths(List<DrawPath> paths) {
+        this.paths = paths;
+    }
+
+    public List<DrawPath> getPaths() {
+        return paths;
+    }
+
+    public void setBackupPaths(List<DrawPath> paths) {
+        this.backupPaths = paths;
+    }
+
+    public List<DrawPath> getBackupPaths() {
+        return backupPaths;
+    }
 }
+

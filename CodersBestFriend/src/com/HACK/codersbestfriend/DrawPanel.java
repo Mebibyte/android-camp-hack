@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 enum State {
     DRAW, ERASE, RECTANGLE;
@@ -21,13 +22,14 @@ public class DrawPanel extends View {
     //Mpaint is for drawing, R paint is for rectangles, E paint is for erasing, B paint is for
     //the block of white at the bottom
     private Paint mPaint, rPaint, ePaint, bPaint;
-    private ArrayList<DrawPath> paths = new ArrayList<DrawPath>();
-    private ArrayList<DrawPath> backupPaths = new ArrayList<DrawPath>();
+    private List<DrawPath> paths = new ArrayList<DrawPath>();
+    private List<DrawPath> backupPaths = new ArrayList<DrawPath>();
     private State state = State.DRAW;
     private Canvas mCanvas = null;
     private Bitmap bmp;
     private float highlightX;
     private float startX, startY;
+    private CodersBestFragment fragment;
 
     public void toDraw()
     {
@@ -213,8 +215,23 @@ public class DrawPanel extends View {
     public void closing(MainActivity mainActivity)
     {
         mainActivity.saveImage(bmp, "design", "Coder's best friend design");
+        mainActivity.setPaths(paths);
+        mainActivity.setBackupPaths(backupPaths);
     }
-}
+
+
+    public void setFragment(CodersBestFragment fragment) {
+        this.fragment = fragment;
+    }
+
+    public void setPath(List<DrawPath> path) {
+        this.paths = path;
+    }
+
+    public void setBackupPaths(List<DrawPath> paths) {
+        this.backupPaths = paths;
+    }
+ }
 
 class DrawPath
 {
