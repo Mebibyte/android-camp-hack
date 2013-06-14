@@ -25,7 +25,7 @@ public class CodersBestFragment extends Fragment {
         return rootView;
     }
 
-    public void onClick() {
+    public void onClick(String string) {
         //Blah
     }
 }
