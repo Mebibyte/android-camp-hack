@@ -52,7 +52,8 @@ public class MainActivity extends Activity {
     private CharSequence mTitle;
     private String[] mFragmentTitles;
 
-    private Fragment _currentFragment;
+    private Fragment mCurrentFragment;
+    private CodersBFDatabaseAdapter mDbAdapter;
 
     private DrawPanel draw;
     private MenuItem m_timerMenuItem;
@@ -103,6 +104,8 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
+        mDbAdapter = new CodersBFDatabaseAdapter(this);
+        mDbAdapter.open();
     }
 
     @Override
@@ -132,10 +135,10 @@ public class MainActivity extends Activity {
         // Handle action buttons
         switch(item.getItemId()) {
             case R.id.timer:
-                _currentFragment = new CodersBestFragment(R.layout.fragment_timer);
+                mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer);
 
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
 
                 // update selected item and title, then close the drawer
                 mDrawerList.setItemChecked(2, true);
@@ -156,28 +159,28 @@ public class MainActivity extends Activity {
     }
 
     public void newTaskSpawn(View view) {
-        _currentFragment = new NewTaskFragment();
+        mCurrentFragment = new NewTaskFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_VIEW_NUMBER, 0);
-        _currentFragment.setArguments(args);
+        mCurrentFragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
     }
 
     // We can cast this because this is the onClick method of the NewTask view
     public void newTaskCreate(View view) {
-        ((CodersBestFragment)_currentFragment).onClick("CREATE");
+        ((CodersBestFragment) mCurrentFragment).onClick("CREATE");
     }
 
-    public void newTaskFinish() {
-        _currentFragment = new TaskViewFragment();
+    public void newTaskFinish(View view) {
+        mCurrentFragment = new TaskViewFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_VIEW_NUMBER, 0);
-        _currentFragment.setArguments(args);
+        mCurrentFragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
     }
 
     private void selectItem(int position) {
@@ -185,23 +188,23 @@ public class MainActivity extends Activity {
         Log.i("ITEM", position + "");
         switch(position) {
             case 0: // Tasks
-                _currentFragment = new TaskViewFragment();
+                mCurrentFragment = new TaskViewFragment();
                 break;
             case 1: // Design
-                _currentFragment = new CodersBestFragment(R.layout.activity_design);
+                mCurrentFragment = new CodersBestFragment(R.layout.activity_design);
                 break;
             case 2: // Timer
-                _currentFragment = new CodersBestFragment(R.layout.fragment_timer);
+                mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer);
                 break;
             default:
-                _currentFragment = new CodersBestFragment(R.layout.activity_main);
+                mCurrentFragment = new CodersBestFragment(R.layout.activity_main);
         }
         Bundle args = new Bundle();
         args.putInt(ARG_VIEW_NUMBER, position);
-        _currentFragment.setArguments(args);
+        mCurrentFragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
+        fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment).commit();
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
@@ -306,19 +309,23 @@ public class MainActivity extends Activity {
     //Methods for changing design state
     public void changeToPencil(View view)
     {
-        draw = (DrawPanel)_currentFragment.getView().findViewById(R.id.drawPanel);
+        draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
         draw.toDraw();
     }
 
     public void changeToEraser(View view)
     {
-        draw = (DrawPanel)_currentFragment.getView().findViewById(R.id.drawPanel);
+        draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
         draw.toErase();
     }
 
     public void changeToRectangle(View view)
     {
-        draw = (DrawPanel)_currentFragment.getView().findViewById(R.id.drawPanel);
+        draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
         draw.toRect();
+    }
+
+    public CodersBFDatabaseAdapter getAdapter() {
+        return mDbAdapter;
     }
 }

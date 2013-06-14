@@ -23,6 +23,7 @@ public class DrawPanel extends View {
     private ArrayList<DrawPath> paths = new ArrayList<DrawPath>();
     private State state = State.DRAW;
     private float highlightX;
+    private float startX, startY;
 
     public void toDraw()
     {
@@ -53,7 +54,7 @@ public class DrawPanel extends View {
         rPaint.setStrokeWidth(6);
         ePaint = new Paint();
         ePaint.setColor(Color.WHITE);
-        ePaint.setStrokeWidth(10);
+        ePaint.setStrokeWidth(40);
         ePaint.setStyle(Paint.Style.STROKE);
         mPaint = new Paint();
         mPaint.setDither(true);
@@ -75,7 +76,7 @@ public class DrawPanel extends View {
         rPaint.setStrokeWidth(6);
         ePaint = new Paint();
         ePaint.setColor(Color.WHITE);
-        ePaint.setStrokeWidth(10);
+        ePaint.setStrokeWidth(40);
         ePaint.setStyle(Paint.Style.STROKE);
         mPaint = new Paint();
         mPaint.setDither(true);
@@ -97,7 +98,7 @@ public class DrawPanel extends View {
         rPaint.setStrokeWidth(6);
         ePaint = new Paint();
         ePaint.setColor(Color.WHITE);
-        ePaint.setStrokeWidth(10);
+        ePaint.setStrokeWidth(40);
         ePaint.setStyle(Paint.Style.STROKE);
         mPaint = new Paint();
         mPaint.setDither(true);
@@ -115,30 +116,51 @@ public class DrawPanel extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawColor(Color.WHITE);
-        canvas.drawRect(highlightX,995,highlightX + 110,1105, mPaint);
         for(DrawPath path: paths)
         {
             canvas.drawPath(path.getPath(), path.getPaint());
         }
+        canvas.drawRect(highlightX,980,highlightX + 110,1090, mPaint);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            path = new Path();
-            path.moveTo(event.getX(), event.getY());
-            path.lineTo(event.getX(), event.getY());
-            if(state == State.DRAW)
+        if(state == State.RECTANGLE)
+        {
+            if(event.getAction() == MotionEvent.ACTION_DOWN)
             {
-                paths.add(new DrawPath(path, mPaint));
+                path = new Path();
+                paths.add(new DrawPath(path, rPaint));
+                startX = event.getX();
+                startY = event.getY();
             }
-            else if(state == State.ERASE)
+
+            if(event.getAction() == MotionEvent.ACTION_MOVE ||
+                    event.getAction() == MotionEvent.ACTION_UP)
             {
-                paths.add(new DrawPath(path, ePaint));
+                path.rewind();
+                path.addRect(Math.min(startX, event.getX()), Math.min(startY, event.getY()),
+                        Math.max(startX, event.getX()), Math.max(startY, event.getY()), Path.Direction.CW);
             }
-        } else if(event.getAction() == MotionEvent.ACTION_MOVE ||
-                event.getAction() == MotionEvent.ACTION_UP) {
-            path.lineTo(event.getX(), event.getY());
+        }
+        else
+        {
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                path = new Path();
+                path.moveTo(event.getX(), event.getY());
+                path.lineTo(event.getX(), event.getY());
+                if(state == State.DRAW)
+                {
+                    paths.add(new DrawPath(path, mPaint));
+                }
+                else if(state == State.ERASE)
+                {
+                    paths.add(new DrawPath(path, ePaint));
+                }
+            } else if(event.getAction() == MotionEvent.ACTION_MOVE ||
+                    event.getAction() == MotionEvent.ACTION_UP) {
+                path.lineTo(event.getX(), event.getY());
+            }
         }
         invalidate();
         return true;

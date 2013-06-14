@@ -26,9 +26,12 @@
         android:icon="@drawable/icon_white"
         android:theme="@android:style/Theme.Holo.Light">
 
+
         <activity
             android:name=".MainActivity"
-            android:label="Coder's Best Friend">
+            android:label="Coder's Best Friend"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
