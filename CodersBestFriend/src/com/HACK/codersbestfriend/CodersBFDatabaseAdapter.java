@@ -135,7 +135,7 @@ public class CodersBFDatabaseAdapter {
          */
         public boolean deleteTask(LinkedHashMap<String, String> task) {
 
-            return mDb.delete(DATABASE_TABLE, KEY_NAME + "=" + task.get("Title"), null) > 0;
+            return mDb.delete(DATABASE_TABLE, KEY_NAME + "='" + task.get("Title")+"'", null) > 0;
         }
 
         /**
