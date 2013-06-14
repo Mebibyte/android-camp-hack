@@ -1,5 +1,7 @@
 package com.HACK.codersbestfriend;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -20,7 +22,10 @@ public class Task {
         mTitle = title;
         mTags = new ArrayList<Tag>();
         String[] tag = tags.split(",");
-        for (String t : tag) mTags.add(Tag.toTag(t));
+        for (String t : tag) {
+            //Log.i("CREATE", "-" + t + "-");
+            mTags.add(Tag.toTag(t));
+        }
     }
 
     public String getTitle() {
@@ -40,6 +45,7 @@ public class Task {
     }
 
     public boolean hasTag(String tag) {
+        Log.i("SOOO", "-" + tag + "-" + mTags.contains(Tag.toTag(tag)));
         return mTags.contains(Tag.toTag(tag));
     }
 }
