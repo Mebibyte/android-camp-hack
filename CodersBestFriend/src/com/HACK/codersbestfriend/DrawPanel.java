@@ -1,7 +1,6 @@
 package com.HACK.codersbestfriend;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,7 +17,6 @@ enum State {
 
 public class DrawPanel extends View {
     private Path path;
-    private Bitmap bmp;
     //Mpaint is for drawing, R paint is for rectangles, E paint is for erasing, B paint is for
     //the block of white at the bottom
     private Paint mPaint, rPaint, ePaint, bPaint;
@@ -158,6 +156,7 @@ public class DrawPanel extends View {
         }
         canvas.drawRect(0, 980, 1500, 1500, bPaint);
         canvas.drawRect(highlightX,980,highlightX + 110,1090, mPaint);
+
     }
 
     @Override
@@ -202,6 +201,8 @@ public class DrawPanel extends View {
         invalidate();
         return true;
     }
+
+    
 }
 
 class DrawPath
