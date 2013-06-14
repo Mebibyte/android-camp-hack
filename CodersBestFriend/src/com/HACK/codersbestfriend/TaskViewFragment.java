@@ -68,6 +68,8 @@ public class TaskViewFragment extends ListFragment {
         dbApdater.open();
         data = dbApdater.fetchAllTasks();
 
+        Log.i("DELETE", "Initial " + data.size());
+
         adapter = new SimpleAdapter(getActivity(), data,
                 R.layout.tasks_row,
                 new String[] {"Title", "Tags"},
@@ -83,8 +85,12 @@ public class TaskViewFragment extends ListFragment {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
+                                    dbApdater.deleteTask((LinkedHashMap)adapter.getItem(position));
+                                    for (LinkedHashMap<String, String> item : data)
+                                        Log.i("TAS", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
                                     data.remove(adapter.getItem(position));
-                                    adapter.notifyDataSetChanged();
+                                    for (LinkedHashMap<String, String> item : data)
+                                        Log.i("TAS", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
                                 }
                                 adapter.notifyDataSetChanged();
                             }
