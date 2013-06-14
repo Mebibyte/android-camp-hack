@@ -164,7 +164,7 @@ public class CodersBFDatabaseAdapter {
         public ArrayList<LinkedHashMap<String, String>> fetchTaskWithFilter(Tag tag) throws SQLException {
             Cursor query =
                     mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                            KEY_NAME, KEY_TAGS}, KEY_TAGS + " LIKE '" + tag.toString()+"'", null,
+                            KEY_NAME, KEY_TAGS}, KEY_TAGS + " LIKE '%" + tag.toString()+"%'", null,
                             null, null, null, null);
             ArrayList<LinkedHashMap<String, String>> result = null;
             if (query!= null){
