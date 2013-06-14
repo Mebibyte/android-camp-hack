@@ -272,6 +272,8 @@ public class MainActivity extends Activity {
                ((TextView) findViewById(R.id.timer_error_text)).setText("Enter a time!");
             }
         }
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
     }
 
     /**
