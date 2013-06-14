@@ -203,7 +203,7 @@ public class CodersBFDatabaseAdapter {
             for (int i=0;i<cursor.getCount();i++) {
                 LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
                 map.put("Title", cursor.getString(1));
-                map.put("Category", cursor.getString(2));
+                map.put("Tags", cursor.getString(2));
                 result.add(map);
                 cursor.moveToNext();
             }
