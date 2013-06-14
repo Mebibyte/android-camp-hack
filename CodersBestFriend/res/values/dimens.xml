@@ -6,7 +6,7 @@
     <dimen name="pencilX">10dp</dimen>
     <dimen name="eraserX">100dp</dimen>
     <dimen name="rectangleX">190dp</dimen>
-    <dimen name="buttonY">740dp</dimen>
+    <dimen name="buttonY">730dp</dimen>
     <dimen name="button_size">80dp</dimen>
     <dimen name="tasks_row_height">100dp</dimen>
     <dimen name="tasks_name">25dp</dimen>
