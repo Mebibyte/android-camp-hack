@@ -12,7 +12,7 @@
             android:text="@string/timer_button_stop"
             android:id="@+id/button"
             android:layout_gravity="center"
-            android:onClick="startTimer"
+            android:onClick="stopTimer"
             android:layout_marginTop="210dp"/>
 
 

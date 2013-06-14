@@ -138,7 +138,11 @@ public class MainActivity extends Activity {
         // Handle action buttons
         switch(item.getItemId()) {
             case R.id.timer:
-                mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
+                if (timerRunning) {
+                    mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
+                } else {
+                    mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer);
+                }
 
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
@@ -262,15 +266,17 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void run() {
-                        if ( System.currentTimeMillis() < m_endTime ) {
+                        if ( System.currentTimeMillis() < m_endTime && timerRunning) {
                             // if the time hasn't elapsed
                             h.postDelayed(this, 1000);
                             // update the actionBar
                             m_timerMenuItem.setTitle(Long.toString(time + ((m_startTime - System.currentTimeMillis())/1000)));
                         } else {
-                            Toast.makeText(c, "Timer Done!", Toast.LENGTH_LONG).show();
-                            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                            v.vibrate(500);
+                            if (timerRunning) {
+                                Toast.makeText(c, "Timer Done!", Toast.LENGTH_LONG).show();
+                                Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                                v.vibrate(500);
+                            }
                             timerRunning = false;
                             m_timerMenuItem.setTitle("Set Timer");
                         }
@@ -285,6 +291,16 @@ public class MainActivity extends Activity {
         imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
 
         mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
+        Bundle args = new Bundle();
+        mCurrentFragment.setArguments(args);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment).commit();
+    }
+
+    public void stopTimer(View view) {
+        m_timerMenuItem.setTitle("Set Timer");
+        timerRunning = false;
+        mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer);
         Bundle args = new Bundle();
         mCurrentFragment.setArguments(args);
         FragmentManager fragmentManager = getFragmentManager();
