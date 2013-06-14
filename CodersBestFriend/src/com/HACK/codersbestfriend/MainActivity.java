@@ -160,7 +160,7 @@ public class MainActivity extends Activity {
         ((CodersBestFragment)_currentFragment).onClick("CREATE");
     }
 
-    public void newTaskFinish() {
+    public void newTaskFinish(View view) {
         _currentFragment = new TaskViewFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_VIEW_NUMBER, 0);

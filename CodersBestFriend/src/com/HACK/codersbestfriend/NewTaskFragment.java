@@ -55,6 +55,6 @@ public class NewTaskFragment extends CodersBestFragment {
         }
         Task task = new Task(title, Arrays.asList(tags));
         mDbAdapter.createTask(task);
-        ((MainActivity) getActivity()).newTaskFinish();
+        ((MainActivity) getActivity()).newTaskFinish(getView());
     }
 }
