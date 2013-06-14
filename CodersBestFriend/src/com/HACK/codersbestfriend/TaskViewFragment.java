@@ -31,7 +31,7 @@ public class TaskViewFragment extends ListFragment {
     }
 
     SimpleAdapter adapter;
-    List data;
+    ArrayList<LinkedHashMap<String, String>> data;
     CodersBFDatabaseAdapter dbApdater;
 
     public void fillData(View view) {
@@ -41,28 +41,31 @@ public class TaskViewFragment extends ListFragment {
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.filter_list, R.layout.tasks_filter_list);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter2);
-        /*spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 data = TaskManager.filter(dbApdater.fetchAllTasks(), (String)adapterView.getItemAtPosition(i));
+                for (LinkedHashMap<String, String> item : dbApdater.fetchAllTasks())
+                    Log.i("TASK", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });*/
+        });
 
-        data = new ArrayList<LinkedHashMap<String, String>>();
+        /*data = new ArrayList<LinkedHashMap<String, String>>();
         for (int i = 0; i < 20; i++) {
             Map<String, String> datum = new HashMap<String, String>(2);
             datum.put("Title", "Title" + ((Integer)i).toString());
             datum.put("Tag", "Tag" + ((Integer)i).toString());
             data.add(datum);
-        }
+        }*/
 
-        /*dbApdater = new CodersBFDatabaseAdapter(getActivity());
-        data = dbApdater.fetchAllTasks();*/
+        dbApdater = new CodersBFDatabaseAdapter(getActivity());
+        dbApdater.open();
+        data = dbApdater.fetchAllTasks();
 
         adapter = new SimpleAdapter(getActivity(), data,
                 R.layout.tasks_row,

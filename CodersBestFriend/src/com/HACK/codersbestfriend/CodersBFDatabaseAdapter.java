@@ -120,6 +120,7 @@ public class CodersBFDatabaseAdapter {
             }
             tagString.delete(tagString.length()-2,tagString.length());
             initialValues.put(KEY_TAGS, tagString.toString());
+            Log.d("ADD", initialValues.toString());
 
             long rowId = mDb.insert(DATABASE_TABLE, null, initialValues);
             task.setRowID(rowId);
@@ -150,6 +151,7 @@ public class CodersBFDatabaseAdapter {
             ArrayList<LinkedHashMap<String, String>> result = new ArrayList<LinkedHashMap<String, String>>();
             for (int i=0;i<query.getCount();i++) {
                 LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+                Log.d("FETCH", "Title = " + query.getString(1) + " Tag = " + query.getString(2));
                 map.put("Title", query.getString(1));
                 map.put("Tag", query.getString(2));
                 result.add(map);
