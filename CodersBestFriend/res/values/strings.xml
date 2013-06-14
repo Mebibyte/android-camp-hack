@@ -45,6 +45,7 @@
     <string name="category_prompt">Choose a tag</string>
 
     <string-array name="filter_list">
+        <item>All</item>
         <item>Bug</item>
         <item>Specification</item>
         <item>Front-end</item>

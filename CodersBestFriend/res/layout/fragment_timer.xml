@@ -4,7 +4,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:gravity="center_vertical">
+        >
 
      <TextView
             android:layout_width="wrap_content"
@@ -12,7 +12,8 @@
             android:text="Enter an amount of time in seconds:"
             android:id="@+id/textView"
             android:layout_gravity="center"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:layout_marginTop="150dp"/>
 
     <EditText
             android:layout_width="wrap_content"
