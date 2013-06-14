@@ -1,9 +1,13 @@
 package com.HACK.codersbestfriend;
 
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,15 +21,26 @@ public class NewTaskFragment extends CodersBestFragment {
 
     public NewTaskFragment() {
         super(R.layout.fragment_new_task);
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         mDbAdapter = new CodersBFDatabaseAdapter(getActivity());
         mDbAdapter.open();
+        return view;
     }
 
     /*
      * Called when submit button is pressed
      */
-    public void onClick(View view) {
+    public void onClick(String string) {
         String title = ((EditText) getView().findViewById(R.id.task_title)).getText().toString();
+        if (title.length() == 0) {
+            ((TextView) getView().findViewById(R.id.error_message)).setText("Please enter a title");
+            return;
+        }
+        ((TextView) getView().findViewById(R.id.error_message)).setText("");
         Tag[] tags = new Tag[3];
         RadioGroup[] groups = {(RadioGroup) getView().findViewById(R.id.group1),
                 (RadioGroup) getView().findViewById(R.id.group2),
@@ -38,7 +53,8 @@ public class NewTaskFragment extends CodersBestFragment {
             int clicked = group.indexOfChild(radioButton);
             tags[i] = TAGS[i][clicked];
         }
-        Log.i("Tag", Arrays.toString(tags));
         Task task = new Task(title, Arrays.asList(tags));
+        mDbAdapter.createTask(task);
+        ((MainActivity) getActivity()).newTaskFinish();
     }
 }

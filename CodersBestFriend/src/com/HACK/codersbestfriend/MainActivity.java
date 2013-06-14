@@ -147,9 +147,29 @@ public class MainActivity extends Activity {
         }
     }
 
+    public void newTaskSpawn(View view) {
+        _currentFragment = new NewTaskFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_VIEW_NUMBER, 0);
+        _currentFragment.setArguments(args);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
+    }
+
     // We can cast this because this is the onClick method of the NewTask view
-    public void newTaskOnClick(View view) {
-        ((CodersBestFragment)_currentFragment).onClick();
+    public void newTaskCreate(View view) {
+        ((CodersBestFragment)_currentFragment).onClick("CREATE");
+    }
+
+    public void newTaskFinish() {
+        _currentFragment = new TaskViewFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_VIEW_NUMBER, 0);
+        _currentFragment.setArguments(args);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
     }
 
     private void selectItem(int position) {
@@ -164,9 +184,6 @@ public class MainActivity extends Activity {
                 break;
             case 2: // Timer
                 _currentFragment = new CodersBestFragment(R.layout.fragment_timer);
-                break;
-            case 3: // ADD (Just for testing)
-                _currentFragment = new NewTaskFragment();
                 break;
             default:
                 _currentFragment = new CodersBestFragment(R.layout.activity_main);
