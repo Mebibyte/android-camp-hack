@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
         // Handle action buttons
         switch(item.getItemId()) {
             case R.id.timer:
-                mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer);
+                mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
@@ -200,6 +200,10 @@ public class MainActivity extends Activity {
                 mCurrentFragment = new CodersBestFragment(R.layout.activity_design);
                 break;
             case 2: // Timer
+                if (timerRunning) {
+                    mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
+                    break;
+                }
                 mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer);
                 break;
             default:
@@ -274,6 +278,12 @@ public class MainActivity extends Activity {
         }
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+
+        mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
+        Bundle args = new Bundle();
+        mCurrentFragment.setArguments(args);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment).commit();
     }
 
     /**

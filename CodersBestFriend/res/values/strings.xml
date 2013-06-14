@@ -57,5 +57,6 @@
     <!-- Timer -->
     <string name="timer">"Set Timer"</string>
     <string name="timer_button">"Start Timer"</string>
+    <string name="timer_button_stop">"Stop Timer"</string>
     <string name="timer_error">""</string>
 </resources>
