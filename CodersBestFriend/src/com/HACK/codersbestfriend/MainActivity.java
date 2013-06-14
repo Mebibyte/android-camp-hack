@@ -47,6 +47,8 @@ public class MainActivity extends Activity {
     private String[] mFragmentTitles;
 
     private Fragment _currentFragment;
+
+    private DrawPanel draw;
     public static final String ARG_VIEW_NUMBER = "view_number";
 
     @Override
@@ -145,9 +147,29 @@ public class MainActivity extends Activity {
         }
     }
 
+    public void newTaskSpawn(View view) {
+        _currentFragment = new NewTaskFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_VIEW_NUMBER, 0);
+        _currentFragment.setArguments(args);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
+    }
+
     // We can cast this because this is the onClick method of the NewTask view
-    public void newTaskOnClick(View view) {
-        ((CodersBestFragment)_currentFragment).onClick();
+    public void newTaskCreate(View view) {
+        ((CodersBestFragment)_currentFragment).onClick("CREATE");
+    }
+
+    public void newTaskFinish() {
+        _currentFragment = new TaskViewFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_VIEW_NUMBER, 0);
+        _currentFragment.setArguments(args);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, _currentFragment).commit();
     }
 
     private void selectItem(int position) {
@@ -162,9 +184,6 @@ public class MainActivity extends Activity {
                 break;
             case 2: // Timer
                 _currentFragment = new CodersBestFragment(R.layout.fragment_timer);
-                break;
-            case 3: // ADD (Just for testing)
-                _currentFragment = new NewTaskFragment();
                 break;
             default:
                 _currentFragment = new CodersBestFragment(R.layout.activity_main);
@@ -250,16 +269,19 @@ public class MainActivity extends Activity {
     //Methods for changing design state
     public void changeToPencil(View view)
     {
-
+        draw = (DrawPanel)_currentFragment.getView().findViewById(R.id.drawPanel);
+        draw.toDraw();
     }
 
     public void changeToEraser(View view)
     {
-
+        draw = (DrawPanel)_currentFragment.getView().findViewById(R.id.drawPanel);
+        draw.toErase();
     }
 
     public void changeToRectangle(View view)
     {
-
+        draw = (DrawPanel)_currentFragment.getView().findViewById(R.id.drawPanel);
+        draw.toRect();
     }
 }

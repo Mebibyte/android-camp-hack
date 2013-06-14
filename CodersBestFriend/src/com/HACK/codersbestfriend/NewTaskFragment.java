@@ -34,7 +34,7 @@ public class NewTaskFragment extends CodersBestFragment {
     /*
      * Called when submit button is pressed
      */
-    public void onClick() {
+    public void onClick(String string) {
         String title = ((EditText) getView().findViewById(R.id.task_title)).getText().toString();
         if (title.length() == 0) {
             ((TextView) getView().findViewById(R.id.error_message)).setText("Please enter a title");
@@ -54,5 +54,7 @@ public class NewTaskFragment extends CodersBestFragment {
             tags[i] = TAGS[i][clicked];
         }
         Task task = new Task(title, Arrays.asList(tags));
+        mDbAdapter.createTask(task);
+        ((MainActivity) getActivity()).newTaskFinish();
     }
 }

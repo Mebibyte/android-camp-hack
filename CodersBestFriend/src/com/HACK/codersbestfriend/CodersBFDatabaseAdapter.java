@@ -145,37 +145,34 @@ public class CodersBFDatabaseAdapter {
         public ArrayList<LinkedHashMap<String, String>> fetchAllTasks() {
             Cursor query =  mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME,
                     KEY_TAGS}, null, null, null, null, null);
-
-            query.moveToFirst();
-            ArrayList<LinkedHashMap<String, String>> result = new ArrayList<LinkedHashMap<String, String>>();
-            for (int i=0;i<query.getCount();i++) {
-                LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-                map.put("Title", query.getString(1));
-                map.put("Category", query.getString(2));
-                result.add(map);
+            ArrayList<LinkedHashMap<String, String>> result = null;
+            if (query!= null){
+                result = createListFromCursor(query);
+            } else {
+                Log.e("HACK", "DB query null");
             }
-
             return result;
         }
 
         /**
          * Return a Cursor positioned at the task that matches the given rowId
          *
-         * @param rowId id of task to retrieve
+         * @param tag tag to filter by
          * @return Cursor positioned to matching task, if found
          * @throws SQLException if task could not be found/retrieved
          */
-        public Cursor fetchTask(long rowId) throws SQLException {
-
-            Cursor mCursor =
-
+        public ArrayList<LinkedHashMap<String, String>> fetchTaskWithFilter(Tag tag) throws SQLException {
+            Cursor query =
                     mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                            KEY_NAME, KEY_TAGS}, KEY_ROWID + "=" + rowId, null,
+                            KEY_NAME, KEY_TAGS}, KEY_TAGS + " LIKE '%" + tag.toString()+"%'", null,
                             null, null, null, null);
-            if (mCursor != null) {
-                mCursor.moveToFirst();
+            ArrayList<LinkedHashMap<String, String>> result = null;
+            if (query!= null){
+                result = createListFromCursor(query);
+            } else {
+                Log.e("HACK", "DB query null");
             }
-            return mCursor;
+            return result;
 
         }
 
@@ -195,5 +192,18 @@ public class CodersBFDatabaseAdapter {
             args.put(KEY_TAGS, tags);
 
             return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+        }
+
+        private ArrayList<LinkedHashMap<String, String>> createListFromCursor(Cursor cursor) {
+            ArrayList<LinkedHashMap<String, String>> result = new ArrayList<LinkedHashMap<String, String>>();
+            cursor.moveToFirst();
+            for (int i=0;i<cursor.getCount();i++) {
+                LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+                map.put("Title", cursor.getString(1));
+                map.put("Category", cursor.getString(2));
+                result.add(map);
+                cursor.moveToNext();
+            }
+            return result;
         }
     }
