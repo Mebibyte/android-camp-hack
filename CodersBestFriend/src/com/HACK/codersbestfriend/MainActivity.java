@@ -288,6 +288,18 @@ public class MainActivity extends Activity {
         draw.toRect();
     }
 
+    public void undo(View view)
+    {
+        draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
+        draw.undo();
+    }
+
+    public void clear(View view)
+    {
+        draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
+        draw.clear();
+    }
+
     public CodersBFDatabaseAdapter getAdapter() {
         return mDbAdapter;
     }

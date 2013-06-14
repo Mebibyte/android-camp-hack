@@ -54,4 +54,28 @@
                android:onClick="changeToRectangle"
                android:src="@drawable/rectangle"/>
 
+    <ImageView android:id="@+id/undoImage"
+               android:layout_x="@dimen/undoX"
+               android:layout_y="@dimen/buttonY"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:maxHeight="@dimen/button_size"
+               android:maxWidth="@dimen/button_size"
+               android:scaleX="0.8"
+               android:scaleY="0.8"
+               android:onClick="undo"
+               android:src="@drawable/undo"/>
+
+    <ImageView android:id="@+id/clearImage"
+               android:layout_x="@dimen/clearX"
+               android:layout_y="@dimen/buttonY"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:maxHeight="@dimen/button_size"
+               android:maxWidth="@dimen/button_size"
+               android:scaleX="0.8"
+               android:scaleY="0.8"
+               android:onClick="clear"
+               android:src="@drawable/clear"/>
+
     </AbsoluteLayout>
