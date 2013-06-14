@@ -56,10 +56,10 @@ public class CodersBFDatabaseAdapter {
             @Override
             public void onCreate(SQLiteDatabase db) {
                 db.execSQL(DATABASE_CREATE);
-                ContentValues initialValues = new ContentValues();
+                /*ContentValues initialValues = new ContentValues();
                 initialValues.put(KEY_NAME, "Swipe to the right to delete");
                 initialValues.put(KEY_TAGS, "");
-                db.insert(DATABASE_TABLE,null,initialValues);
+                db.insert(DATABASE_TABLE,null,initialValues);*/
             }
 
             @Override

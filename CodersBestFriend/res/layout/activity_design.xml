@@ -54,7 +54,7 @@
                android:onClick="changeToRectangle"
                android:src="@drawable/rectangle"/>
 
-    <ImageView android:id="@+id/undoImage"
+x    <ImageView android:id="@+id/undoImage"
                android:layout_x="@dimen/undoX"
                android:layout_y="@dimen/buttonY"
                android:layout_width="wrap_content"
