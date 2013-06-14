@@ -1,5 +1,6 @@
 package com.HACK.codersbestfriend;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -17,6 +18,7 @@ public class Task {
 
     public Task(String title, String tags) {
         mTitle = title;
+        mTags = new ArrayList<Tag>();
         String[] tag = tags.split(",");
         for (String t : tag) mTags.add(Tag.toTag(t));
     }
