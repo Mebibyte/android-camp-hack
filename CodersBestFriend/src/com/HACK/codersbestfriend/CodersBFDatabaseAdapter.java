@@ -120,6 +120,7 @@ public class CodersBFDatabaseAdapter {
             }
             tagString.delete(tagString.length()-2,tagString.length());
             initialValues.put(KEY_TAGS, tagString.toString());
+            Log.d("ADD", initialValues.toString());
 
             long rowId = mDb.insert(DATABASE_TABLE, null, initialValues);
             task.setRowID(rowId);
