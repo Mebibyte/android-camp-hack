@@ -20,12 +20,12 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -376,6 +376,11 @@ public class MainActivity extends Activity {
     {
         draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
         draw.clear();
+    }
+
+    public void saveImage(Bitmap bmp, String title, String description)
+    {
+        MediaStore.Images.Media.insertImage(getContentResolver(), bmp, title, description);
     }
 
     public CodersBFDatabaseAdapter getAdapter() {

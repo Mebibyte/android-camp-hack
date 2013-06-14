@@ -1,6 +1,7 @@
 package com.HACK.codersbestfriend;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -23,6 +24,8 @@ public class DrawPanel extends View {
     private ArrayList<DrawPath> paths = new ArrayList<DrawPath>();
     private ArrayList<DrawPath> backupPaths = new ArrayList<DrawPath>();
     private State state = State.DRAW;
+    private Canvas mCanvas = null;
+    private Bitmap bmp;
     private float highlightX;
     private float startX, startY;
 
@@ -149,6 +152,11 @@ public class DrawPanel extends View {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if(mCanvas == null)
+        {
+            mCanvas = canvas;
+            canvas.setBitmap(bmp);
+        }
         canvas.drawColor(Color.WHITE);
         for(DrawPath path: paths)
         {
@@ -202,7 +210,10 @@ public class DrawPanel extends View {
         return true;
     }
 
-    
+    public void closing(MainActivity mainActivity)
+    {
+        mainActivity.saveImage(bmp, "design", "Coder's best friend design");
+    }
 }
 
 class DrawPath
