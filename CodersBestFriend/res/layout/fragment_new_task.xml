@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -12,9 +12,9 @@
             android:layout_gravity="bottom|left"
             android:src="@drawable/back"
             android:background="@null"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:onClick="newTaskFinish"/>
+            android:onClick="newTaskFinish"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -22,9 +22,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/task_title"
             android:id="@+id/task_title_main_head"
-            android:layout_gravity="center"
-            android:textSize="50dp"
-            android:layout_marginBottom="10dp"/>
+            android:textSize="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"/>
     <!--TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,20 +37,21 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="18dp"/-->
 
-    <EditText
-            android:id="@+id/task_title"
-            android:layout_height="wrap_content"
-            android:layout_width="400dp"
-            android:layout_gravity="center"
-            android:hint="@string/prompt_title"/>
-
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="230dp"
+            android:layout_height="200dp"
             android:gravity="right"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp">
+            android:layout_below="@+id/task_title_main_head"
+            android:layout_toRightOf="@+id/error_message"
+            android:id="@+id/linearLayout">
+
+        <EditText
+                android:id="@+id/task_title"
+                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:hint="@string/prompt_title"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -57,34 +59,38 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/prompt_tags"
                 android:id="@+id/task_tag_main_head"
-                android:layout_gravity="center_horizontal|top"
-                android:textSize="30dp"
-                android:layout_marginBottom="18dp"/>
+                android:textSize="25dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"/>
 
-        <LinearLayout
+        <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
 
             <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="200dp"
-                    android:layout_height="fill_parent"
-                    android:layout_marginLeft="30dp">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/issueTypeGroup"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/importanceGroup">
 
                 <TextView
-                        android:layout_width="200dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/level"
                         android:id="@+id/task_tag_level"
                         android:textAlignment="center"
-                        android:textSize="25sp"
+                        android:textSize="19dp"
                         android:textColor="#282727"/>
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                             android:id="@+id/group1"
-                            android:layout_width="200dp"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="right|center_vertical"
@@ -93,46 +99,59 @@
                             android:gravity="center_vertical">
 
                     <RadioButton
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/level_bad"
                             android:id="@+id/task_tag1"
                             android:checked="true"
-                            android:textSize="20sp"
+                            android:textSize="15dp"
                             android:layout_weight="0.3"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="10dp"
                             android:textColor="#282727"/>
 
                     <RadioButton
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/level_terrible"
                             android:id="@+id/task_tag2"
                             android:checked="false"
-                            android:textSize="20sp"
-                            android:layout_marginTop="15dp"
+                            android:textSize="15dp"
+                            android:layout_marginTop="10dp"
                             android:textColor="#282727"/>
 
                 </RadioGroup>
             </LinearLayout>
 
+            <View
+                    android:id="@+id/View01"
+                    android:layout_width="2dip"
+                    android:layout_height="fill_parent"
+                    android:background="#2B497B"
+                    android:layout_toRightOf="@+id/importanceGroup"
+                    android:layout_alignBottom="@+id/issueTypeGroup"/>
+
             <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="200dp"
-                    android:layout_height="fill_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/issueTypeGroup"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp">
 
                 <TextView
-                        android:layout_width="200dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/type"
                         android:id="@+id/task_tag_type"
-                        android:textSize="25sp"
+                        android:textSize="19dp"
                         android:textColor="#282727"/>
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                             android:id="@+id/group2"
-                            android:layout_width="200dp"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="right|center_vertical"
@@ -140,48 +159,60 @@
                             android:layout_alignParentRight="true">
 
                     <RadioButton
-                            android:layout_width="250dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/type_bug"
                             android:id="@+id/task_tag3"
                             android:checked="true"
-                            android:textSize="20dp"
-                            android:layout_marginTop="15dp"
+                            android:textSize="15dp"
+                            android:layout_marginTop="10dp"
                             android:layout_weight="0.3"
                             android:textColor="#282727"/>
 
                     <RadioButton
-                            android:layout_width="fill_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/type_spec"
                             android:id="@+id/task_tag4"
                             android:checked="false"
-                            android:textSize="20dp"
-                            android:layout_marginTop="15dp"
+                            android:textSize="15dp"
+                            android:layout_marginTop="10dp"
                             android:layout_weight="0.3"
                             android:textColor="#282727"/>
 
                 </RadioGroup>
             </LinearLayout>
 
+            <View
+                    android:id="@+id/View01"
+                    android:layout_width="2dip"
+                    android:layout_height="fill_parent"
+                    android:background="#2B497B"
+                    android:layout_toLeftOf="@+id/projectEndGroup"
+                    android:layout_alignBottom="@+id/projectEndGroup"/>
+
             <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="200dp"
-                    android:layout_height="fill_parent">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/issueTypeGroup"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/projectEndGroup">
 
                 <TextView
-                        android:layout_width="200dp"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/end"
                         android:id="@+id/textView4"
                         android:textAlignment="center"
-                        android:textSize="25sp"
+                        android:textSize="19dp"
                         android:textColor="#282727"/>
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                             android:id="@+id/group3"
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:layout_gravity="right|center_vertical"
@@ -189,30 +220,30 @@
                             android:layout_alignParentRight="true">
 
                     <RadioButton
-                            android:layout_width="250dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/end_front"
                             android:id="@+id/task_tag5"
                             android:checked="true"
-                            android:textSize="20dp"
-                            android:layout_marginTop="15dp"
+                            android:textSize="15dp"
+                            android:layout_marginTop="10dp"
                             android:textColor="#282727"/>
 
                     <RadioButton
-                            android:layout_width="250dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/end_back"
                             android:id="@+id/task_tag6"
                             android:checked="false"
-                            android:textSize="20dp"
-                            android:layout_marginTop="15dp"
+                            android:textSize="15dp"
+                            android:layout_marginTop="10dp"
                             android:layout_weight="0.3"
                             android:textColor="#282727"/>
 
                 </RadioGroup>
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <Button
@@ -221,8 +252,9 @@
             android:text="Create Task"
             android:id="@+id/button"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:onClick="newTaskCreate"/>
+            android:onClick="newTaskCreate"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -233,4 +265,4 @@
             android:layout_gravity="center_horizontal"
             android:textColor="#9c0f15"/>
 
-</LinearLayout>
+</RelativeLayout>

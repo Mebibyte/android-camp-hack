@@ -74,8 +74,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         mTitle = mDrawerTitle = getTitle();
         mFragmentTitles = getResources().getStringArray(R.array.nav_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -114,7 +112,18 @@ public class MainActivity extends Activity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
-            selectItem(0);
+            mCurrentFragment = new CodersBestFragment(R.layout.home);
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
+
+            Handler mHandler = new Handler();
+            mHandler.postDelayed(new Runnable() {
+                public void run() {
+                    mCurrentFragment = new TaskViewFragment();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
+                }
+            }, 1000);
         }
         mDbAdapter = new CodersBFDatabaseAdapter(this);
         mDbAdapter.open();
@@ -126,15 +135,6 @@ public class MainActivity extends Activity {
         inflater.inflate(R.menu.main, menu);
         this.m_timerMenuItem = menu.getItem(0);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    /* Called whenever we call invalidateOptionsMenu() */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        // menu.findItem(R.id.timer).setVisible(!drawerOpen);
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -242,11 +242,6 @@ public class MainActivity extends Activity {
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
-    /**
-     * When using the ActionBarDrawerToggle, you must call it during
-     * onPostCreate() and onConfigurationChanged()...
-     */
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -318,14 +313,11 @@ public class MainActivity extends Activity {
         fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment).commit();
     }
 
-    /**
-     * Fragment that appears in the "content_frame", shows a planet
-     */
     public static class ViewFragment extends Fragment {
         public static final String ARG_VIEW_NUMBER = "view_number";
 
         public ViewFragment() {
-            // Empty constructor required for fragment subclasses
+
         }
 
         @Override
@@ -344,7 +336,7 @@ public class MainActivity extends Activity {
         public static final String ARG_VIEW_NUMBER = "view_number";
 
         public DesignFragment() {
-            // Empty constructor required for fragment subclasses
+
         }
 
         @Override
@@ -359,59 +351,37 @@ public class MainActivity extends Activity {
     }
 
     //Methods for changing design state
-    public void changeToPencil(View view)
-    {
+    public void changeToPencil(View view) {
         draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
         draw.toDraw();
     }
 
-    public void changeToEraser(View view)
-    {
+    public void changeToEraser(View view) {
         draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
         draw.toErase();
     }
 
-    public void changeToRectangle(View view)
-    {
+    public void changeToRectangle(View view) {
         draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
         draw.toRect();
     }
 
-    public void undo(View view)
-    {
+    public void undo(View view) {
         draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
         draw.undo();
     }
 
-    public void clear(View view)
-    {
+    public void clear(View view) {
         draw = (DrawPanel) mCurrentFragment.getView().findViewById(R.id.drawPanel);
         draw.clear();
     }
 
-    public void saveImage(Bitmap bmp, String title, String description)
-    {
+    public void saveImage(Bitmap bmp, String title, String description)  {
         MediaStore.Images.Media.insertImage(getContentResolver(), bmp, title, description);
     }
 
     public CodersBFDatabaseAdapter getAdapter() {
         return mDbAdapter;
-    }
-
-    public void onStart() {
-        mCurrentFragment = new CodersBestFragment(R.layout.home);
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
-
-        Handler mHandler = new Handler();
-        mHandler.postDelayed(new Runnable() {
-            public void run() {
-                mCurrentFragment = new TaskViewFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
-            }
-        }, 3500);
-        super.onStart();
     }
 
     public void setPaths(List<DrawPath> paths) {
@@ -430,4 +400,3 @@ public class MainActivity extends Activity {
         return backupPaths;
     }
 }
-

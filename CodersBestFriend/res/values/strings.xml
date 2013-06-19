@@ -44,6 +44,8 @@
     <string name="end_back" >Back-End</string>
     <string name="category_prompt">Choose a tag</string>
 
+    <string name="filter_label">Filter:</string>
+    <string name="tasks_label">Tasks</string>
     <string-array name="filter_list">
         <item>All</item>
         <item>Bug</item>

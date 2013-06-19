@@ -21,6 +21,7 @@
 
     <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="17" />
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:label="Coder's Best Friend"
@@ -29,9 +30,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="Coder's Best Friend"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait">
+            android:label="Coder's Best Friend">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

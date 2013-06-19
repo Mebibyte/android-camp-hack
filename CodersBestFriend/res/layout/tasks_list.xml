@@ -4,33 +4,48 @@
         android:layout_height="fill_parent"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <LinearLayout
+        <RelativeLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_gravity="center"
-                android:gravity="center|right">
+                android:gravity="center">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="fill_parent"
+                      android:layout_gravity="left"
+                      android:gravity="bottom|left"
+                      android:textSize="25dp"
+                      android:text="@string/tasks_label"
+                      android:id="@+id/textView2"
+                      android:layout_alignParentTop="true"
+                      android:layout_alignParentLeft="true"
+                      android:layout_marginLeft="2dp"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="filter by:"
+                    android:text="@string/filter_label"
+                    android:textSize="25dp"
                     android:id="@+id/textView"
                     android:layout_gravity="right"
                     android:gravity="bottom|right"
-                    android:textColor="#3b3a3a"/>
+                    android:textColor="#3b3a3a"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/spinner"/>
 
             <Spinner
-                    android:layout_width="175dp"
+                    android:layout_width="160dp"
                     android:layout_height="fill_parent"
                     android:id="@+id/spinner"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
                     android:spinnerMode="dialog"
                     android:prompt="@string/category_prompt"
-                    android:layout_marginRight="45dp"/>
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"/>
 
             <ImageButton
                     android:layout_width="wrap_content"
@@ -42,12 +57,12 @@
                     android:clickable="true"
                     android:onClick="newTaskSpawn"
                     android:paddingEnd="0dp"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp"
-                    android:contentDescription="add a new task"/>
+                    android:contentDescription="add a new task"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="2dp"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
     <LinearLayout
             android:orientation="vertical"
@@ -55,11 +70,15 @@
             android:layout_height="fill_parent"
             xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:textSize="15dp"
-                  style="?android:listSeparatorTextViewStyle"
-                  android:text="Tasks" />
+        <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:layout_gravity="center"
+                android:layout_marginTop="-10dp"
+                android:progress="100"
+                />
 
         <ListView
                 android:id="@android:id/list"
