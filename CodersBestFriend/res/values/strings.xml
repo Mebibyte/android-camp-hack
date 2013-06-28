@@ -50,8 +50,8 @@
         <item>All</item>
         <item>Bug</item>
         <item>Spec</item>
-        <item>Front-end</item>
-        <item>Back-end</item>
+        <item>Front end</item>
+        <item>Back end</item>
         <item>Minor</item>
         <item>Major</item>
     </string-array>

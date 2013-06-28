@@ -56,6 +56,7 @@ public class NewTaskFragment extends CodersBestFragment {
             int clicked = group.indexOfChild(radioButton);
             tags[i] = TAGS[i][clicked];
         }
+        Log.i("FORBES", "task created: "+title);
         Task task = new Task(title, Arrays.asList(tags));
         mDbAdapter.createTask(task);
         ((MainActivity) getActivity()).newTaskFinish(getView());

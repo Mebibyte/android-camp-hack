@@ -14,10 +14,10 @@ public class TaskManager {
         //Log.i("FILTER", "" + tasks.size());
         for (LinkedHashMap<String, String> item : tasks) {
             //Log.i("TASK", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
-            if (tag != "All" && !item.get("Title").equals("") && !item.get("Tags").equals("")) {
+            if (!item.get("Title").equals("") && !item.get("Tags").equals("")) {
                 Task task = new Task(item.get("Title"), item.get("Tags"));
                 Log.i("FILTER", item.get("Tags"));
-                if (task.hasTag(tag)) ans.add(item);
+                if (task.hasTag(tag)||tag.equals("All")) ans.add(item);
             }
         }
         //Log.i("FILTER", "" + ans.size());
