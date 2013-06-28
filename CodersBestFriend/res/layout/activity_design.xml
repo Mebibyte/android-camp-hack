@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--suppress ALL -->
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -12,15 +12,12 @@
                 tools:context=".MainActivity">
 
     <com.HACK.codersbestfriend.DrawPanel
-
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/drawPanel" />
 
 
     <ImageView android:id="@+id/pencilImage"
-               android:layout_x="@dimen/pencilX"
-               android:layout_y="@dimen/buttonY"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:maxHeight="@dimen/button_size"
@@ -28,11 +25,10 @@
                android:scaleX="0.8"
                android:scaleY="0.8"
                android:onClick="changeToPencil"
-               android:src="@drawable/pencil"/>
+               android:src="@drawable/pencil"
+               android:layout_alignParentBottom="true"/>
 
     <ImageView android:id="@+id/eraserImage"
-               android:layout_x="@dimen/eraserX"
-               android:layout_y="@dimen/buttonY"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:maxHeight="@dimen/button_size"
@@ -40,11 +36,11 @@
                android:scaleX="0.8"
                android:scaleY="0.8"
                android:onClick="changeToEraser"
-               android:src="@drawable/eraser"/>
+               android:src="@drawable/eraser"
+               android:layout_alignParentBottom="true"
+               android:layout_toRightOf="@+id/pencilImage"/>
 
     <ImageView android:id="@+id/rectImage"
-               android:layout_x="@dimen/rectangleX"
-               android:layout_y="@dimen/buttonY"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:maxHeight="@dimen/button_size"
@@ -52,11 +48,11 @@
                android:scaleX="0.8"
                android:scaleY="0.8"
                android:onClick="changeToRectangle"
-               android:src="@drawable/rectangle"/>
+               android:src="@drawable/rectangle"
+               android:layout_alignParentBottom="true"
+               android:layout_toRightOf="@+id/eraserImage"/>
 
     <ImageView android:id="@+id/undoImage"
-               android:layout_x="@dimen/undoX"
-               android:layout_y="@dimen/buttonY"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:maxHeight="@dimen/button_size"
@@ -64,11 +60,11 @@
                android:scaleX="0.8"
                android:scaleY="0.8"
                android:onClick="undo"
-               android:src="@drawable/undo"/>
+               android:src="@drawable/undo"
+               android:layout_alignParentBottom="true"
+               android:layout_toRightOf="@+id/rectImage"/>
 
     <ImageView android:id="@+id/clearImage"
-               android:layout_x="@dimen/clearX"
-               android:layout_y="@dimen/buttonY"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:maxHeight="@dimen/button_size"
@@ -76,6 +72,8 @@
                android:scaleX="0.8"
                android:scaleY="0.8"
                android:onClick="clear"
-               android:src="@drawable/clear"/>
+               android:src="@drawable/clear"
+               android:layout_alignParentBottom="true"
+               android:layout_toRightOf="@+id/undoImage"/>
 
-    </AbsoluteLayout>
+    </RelativeLayout>

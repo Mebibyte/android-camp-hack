@@ -28,11 +28,9 @@ public class TaskViewFragment extends ListFragment {
 
     SimpleAdapter adapter;
     ArrayList<LinkedHashMap<String, String>> data;
-    CodersBFDatabaseAdapter dbApdater;
+    CodersBFDatabaseAdapter dbAdapter;
 
     public void fillData(View view) {
-
-
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.filter_list, R.layout.tasks_filter_list);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -41,9 +39,9 @@ public class TaskViewFragment extends ListFragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i("SOMETHING", "asdfslkaj");
-                //for (LinkedHashMap<String, String> item : dbApdater.fetchAllTasks())
+                //for (LinkedHashMap<String, String> item : dbAdapter.fetchAllTasks())
                     //Log.i("TASK", "" + "Title: " + item.get("Title") + "Tags: " + item.get("Tag"));
-                data = TaskManager.filter(dbApdater.fetchAllTasks(), (String)adapterView.getItemAtPosition(i));
+                data = TaskManager.filter(dbAdapter.fetchAllTasks(), (String)adapterView.getItemAtPosition(i));
                 adapter = new SimpleAdapter(getActivity(), data,
                         R.layout.tasks_row,
                         new String[] {"Title", "Tags"},
@@ -66,9 +64,9 @@ public class TaskViewFragment extends ListFragment {
             data.add(datum);
         }*/
 
-        dbApdater = new CodersBFDatabaseAdapter(getActivity());
-        dbApdater.open();
-        data = dbApdater.fetchAllTasks();
+        dbAdapter = new CodersBFDatabaseAdapter(getActivity());
+        dbAdapter.open();
+        data = dbAdapter.fetchAllTasks();
 
         Log.i("DELETE", "Initial " + data.size());
 
@@ -87,7 +85,7 @@ public class TaskViewFragment extends ListFragment {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    dbApdater.deleteTask((LinkedHashMap) adapter.getItem(position));
+                                    dbAdapter.deleteTask((LinkedHashMap) adapter.getItem(position));
                                     Log.i("SOMETHING", "sldfjsdlkfj" + " " + data.size());
                                     for (LinkedHashMap<String, String> item : data)
                                         Log.i("DELETE", "" + "Title " + item.get("Title") + " Tags: " + item.get("Tags"));

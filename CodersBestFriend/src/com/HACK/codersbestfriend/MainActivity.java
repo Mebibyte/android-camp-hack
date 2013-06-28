@@ -29,7 +29,9 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -53,10 +55,6 @@ public class MainActivity extends Activity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
-    private String[] mFragmentTitles;
-
     private Fragment mCurrentFragment;
     private CodersBFDatabaseAdapter mDbAdapter;
 
@@ -68,14 +66,14 @@ public class MainActivity extends Activity {
     public List<DrawPath> paths = new ArrayList<DrawPath>();
     public List<DrawPath> backupPaths = new ArrayList<DrawPath>();
 
+    public static int screenWidth, screenHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // TODO: Fix changing orientation switching reverting current fragment to tasks.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTitle = mDrawerTitle = getTitle();
-        mFragmentTitles = getResources().getStringArray(R.array.nav_items);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -83,7 +81,7 @@ public class MainActivity extends Activity {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mFragmentTitles));
+                R.layout.drawer_list_item, getResources().getStringArray(R.array.nav_items)));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -99,15 +97,6 @@ public class MainActivity extends Activity {
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
                 ) {
-            public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
@@ -119,14 +108,18 @@ public class MainActivity extends Activity {
             Handler mHandler = new Handler();
             mHandler.postDelayed(new Runnable() {
                 public void run() {
-                    mCurrentFragment = new TaskViewFragment();
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
+                    selectItem(0);
                 }
             }, 1000);
         }
+
         mDbAdapter = new CodersBFDatabaseAdapter(this);
         mDbAdapter.open();
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        screenWidth = dm.widthPixels;
+        screenHeight = dm.heightPixels;
     }
 
     @Override
@@ -147,18 +140,14 @@ public class MainActivity extends Activity {
         // Handle action buttons
         switch(item.getItemId()) {
             case R.id.timer:
-                if (timerRunning)
-                    mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
-                else {
-                    mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer);
-                }
+                if (timerRunning) mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
+                else mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
 
                 // update selected item and title, then close the drawer
                 mDrawerList.setItemChecked(2, true);
-                setTitle(mFragmentTitles[2]);
                 mDrawerLayout.closeDrawer(mDrawerList);
                 return true;
             default:
@@ -190,16 +179,9 @@ public class MainActivity extends Activity {
     }
 
     public void newTaskFinish(View view) {
-        mCurrentFragment = new TaskViewFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_VIEW_NUMBER, 0);
-        mCurrentFragment.setArguments(args);
-
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
+        imm.hideSoftInputFromWindow(findViewById(R.id.task_title).getWindowToken(), 0);
+        selectItem(0);
     }
 
     private void selectItem(int position) {
@@ -207,7 +189,7 @@ public class MainActivity extends Activity {
         Log.i("ITEM", position + "");
         if (mCurrentFragment instanceof CodersBestFragment) {
             if (((CodersBestFragment) mCurrentFragment).getResource() == R.layout.activity_design) {
-                ((DrawPanel)(mCurrentFragment.getView().findViewById(R.id.drawPanel))).closing(this);
+                ((DrawPanel)(findViewById(R.id.drawPanel))).closing(this);
             }
         }
         switch(position) {
@@ -238,7 +220,6 @@ public class MainActivity extends Activity {
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
-        setTitle(mFragmentTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
@@ -289,18 +270,19 @@ public class MainActivity extends Activity {
                     }
                 };
                 h.postDelayed(r, 1000);
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(findViewById(R.id.timerEditText).getWindowToken(), 0);
+
+                mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
+                Bundle args = new Bundle();
+                mCurrentFragment.setArguments(args);
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment).commit();
             } else {
                ((TextView) findViewById(R.id.timer_error_text)).setText("Enter a time!");
             }
         }
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-
-        mCurrentFragment = new CodersBestFragment(R.layout.fragment_timer_stop);
-        Bundle args = new Bundle();
-        mCurrentFragment.setArguments(args);
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment).commit();
     }
 
     public void stopTimer(View view) {

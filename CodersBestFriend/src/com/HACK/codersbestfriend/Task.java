@@ -5,9 +5,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by demouser on 6/13/13.
- */
 public class Task {
     private String mTitle;
     private Collection<Tag> mTags;

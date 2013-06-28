@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 
-/**
- * Created by demouser on 6/13/13.
- */
 public class TaskManager {
     public static ArrayList<LinkedHashMap<String, String>> filter(ArrayList<LinkedHashMap<String, String>> tasks, String tag) {
         //Log.i("FILTER", tag);

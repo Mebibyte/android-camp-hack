@@ -28,14 +28,14 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
 /**
- * A {@link android.view.View.OnTouchListener} that makes any {@link View} dismissable when the
+ * A {@link android.view.View.OnTouchListener} that makes any {@link View} dismissible when the
  * user swipes (drags her finger) horizontally across the view.
  *
  * <p><em>For {@link android.widget.ListView} list items that don't manage their own touch events
  * (i.e. you're using
  * {@link android.widget.ListView#setOnItemClickListener(android.widget.AdapterView.OnItemClickListener)}
  * or an equivalent listener on {@link android.app.ListActivity} or
- * {@link android.app.ListFragment}, use {@link com.HACK.slidetodismistesting.SwipeDismissListViewTouchListener} instead.</em></p>
+ * {@link android.app.ListFragment}, use {@link com.HACK.codersbestfriend.SwipeDismissListViewTouchListener} instead.</em></p>
  *
  * <p>Example usage:</p>
  *
@@ -53,7 +53,7 @@ import android.view.ViewGroup;
  * <p>This class Requires API level 12 or later due to use of {@link
  * android.view.ViewPropertyAnimator}.</p>
  *
- * @see com.HACK.slidetodismistesting.SwipeDismissListViewTouchListener
+ * @see com.HACK.codersbestfriend.SwipeDismissListViewTouchListener
  */
 public class SwipeDismissTouchListener implements View.OnTouchListener {
     // Cached ViewConfiguration and system-wide constant values
@@ -91,7 +91,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
     /**
      * Constructs a new swipe-to-dismiss touch listener for the given view.
      *
-     * @param view     The view to make dismissable.
+     * @param view     The view to make dismissible.
      * @param token    An optional token/cookie object to be passed through to the callback.
      * @param callback The callback to trigger when the user has indicated that she would like to
      *                 dismiss this view.

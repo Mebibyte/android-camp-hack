@@ -77,8 +77,6 @@ import java.util.List;
 public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
     // Cached ViewConfiguration and system-wide constant values
     private int mSlop;
-    private int mMinFlingVelocity;
-    private int mMaxFlingVelocity;
     private long mAnimationTime;
 
     // Fixed properties
@@ -122,8 +120,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
     public SwipeDismissListViewTouchListener(ListView listView, OnDismissCallback callback) {
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
         mSlop = vc.getScaledTouchSlop();
-        mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();
-        mMaxFlingVelocity = vc.getScaledMaximumFlingVelocity();
         mAnimationTime = listView.getContext().getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
         mListView = listView;

@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -14,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 enum State {
-    DRAW, ERASE, RECTANGLE;
+    DRAW, ERASE, RECTANGLE
 }
 
 public class DrawPanel extends View {
     private Path path;
-    //Mpaint is for drawing, R paint is for rectangles, E paint is for erasing, B paint is for
-    //the block of white at the bottom
+    // mPaint is for drawing, rPaint is for rectangles, ePaint is for erasing, bPaint is for
+    // the block of white at the bottom
     private Paint mPaint, rPaint, ePaint, bPaint;
     private List<DrawPath> paths = new ArrayList<DrawPath>();
     private List<DrawPath> backupPaths = new ArrayList<DrawPath>();
@@ -31,24 +33,63 @@ public class DrawPanel extends View {
     private float startX, startY;
     private CodersBestFragment fragment;
 
+    public DrawPanel(Context context) {
+        super(context);
+        construct();
+    }
+
+    public DrawPanel(Context context, AttributeSet attrbs) {
+        super(context, attrbs);
+        construct();
+    }
+
+    public DrawPanel(Context context, AttributeSet attrbs, int defStyle) {
+        super(context, attrbs, defStyle);
+        construct();
+    }
+
+    private void construct() {
+        rPaint = new Paint();
+        rPaint.setColor(Color.BLACK);
+        rPaint.setStyle(Paint.Style.STROKE);
+        rPaint.setStrokeWidth(6);
+        ePaint = new Paint();
+        ePaint.setColor(Color.WHITE);
+        ePaint.setStrokeWidth(40);
+        ePaint.setStyle(Paint.Style.STROKE);
+        mPaint = new Paint();
+        mPaint.setDither(true);
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setStrokeWidth(3);
+        bPaint = new Paint();
+        bPaint.setColor(Color.WHITE);
+        bPaint.setStyle(Paint.Style.FILL);
+        highlightX = 10;
+        setFocusable(true);
+        setWillNotDraw(false);
+    }
+
     public void toDraw()
     {
         state = State.DRAW;
-        highlightX = 23;
+        highlightX = 10;
         invalidate();
     }
 
     public void toErase()
     {
         state = State.ERASE;
-        highlightX = 143;
+        highlightX = 140;
         invalidate();
     }
 
     public void toRect()
     {
         state = State.RECTANGLE;
-        highlightX = 263;
+        highlightX = 270;
         invalidate();
     }
 
@@ -76,81 +117,6 @@ public class DrawPanel extends View {
         invalidate();
     }
 
-    public DrawPanel(Context context) {
-        super(context);
-        rPaint = new Paint();
-        rPaint.setColor(Color.BLACK);
-        rPaint.setStyle(Paint.Style.STROKE);
-        rPaint.setStrokeWidth(6);
-        ePaint = new Paint();
-        ePaint.setColor(Color.WHITE);
-        ePaint.setStrokeWidth(40);
-        ePaint.setStyle(Paint.Style.STROKE);
-        mPaint = new Paint();
-        mPaint.setDither(true);
-        mPaint.setColor(Color.BLACK);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(3);
-        bPaint = new Paint();
-        bPaint.setColor(Color.WHITE);
-        bPaint.setStyle(Paint.Style.FILL);
-        highlightX = 23;
-        setFocusable(true);
-        setWillNotDraw(false);
-    }
-
-    public DrawPanel(Context context, AttributeSet attrbs) {
-        super(context, attrbs);
-        rPaint = new Paint();
-        rPaint.setColor(Color.BLACK);
-        rPaint.setStyle(Paint.Style.STROKE);
-        rPaint.setStrokeWidth(6);
-        ePaint = new Paint();
-        ePaint.setColor(Color.WHITE);
-        ePaint.setStrokeWidth(40);
-        ePaint.setStyle(Paint.Style.STROKE);
-        mPaint = new Paint();
-        mPaint.setDither(true);
-        mPaint.setColor(Color.BLACK);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(3);
-        bPaint = new Paint();
-        bPaint.setColor(Color.WHITE);
-        bPaint.setStyle(Paint.Style.FILL);
-        highlightX = 23;
-        setFocusable(true);
-        setWillNotDraw(false);
-    }
-
-    public DrawPanel(Context context, AttributeSet attrbs, int defStyle) {
-        super(context, attrbs, defStyle);
-        rPaint = new Paint();
-        rPaint.setColor(Color.BLACK);
-        rPaint.setStyle(Paint.Style.STROKE);
-        rPaint.setStrokeWidth(6);
-        ePaint = new Paint();
-        ePaint.setColor(Color.WHITE);
-        ePaint.setStrokeWidth(40);
-        ePaint.setStyle(Paint.Style.STROKE);
-        mPaint = new Paint();
-        mPaint.setDither(true);
-        mPaint.setColor(Color.BLACK);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(3);
-        bPaint = new Paint();
-        bPaint.setColor(Color.WHITE);
-        bPaint.setStyle(Paint.Style.FILL);
-        highlightX = 23;
-        setFocusable(true);
-        setWillNotDraw(false);
-    }
-
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -160,12 +126,13 @@ public class DrawPanel extends View {
             canvas.setBitmap(bmp);
         }*/
         canvas.drawColor(Color.WHITE);
-        for(DrawPath path: paths)
+        for (DrawPath path : paths)
         {
             canvas.drawPath(path.getPath(), path.getPaint());
         }
-        canvas.drawRect(0, 980, 1500, 1500, bPaint);
-        canvas.drawRect(highlightX,980,highlightX + 110,1090, mPaint);
+        canvas.drawRect(0, MainActivity.screenHeight - 230, 1500, MainActivity.screenHeight - 100, bPaint);
+        canvas.drawRect(highlightX, MainActivity.screenHeight - 230, highlightX + 110,
+                MainActivity.screenHeight - 120, mPaint);
 
     }
 
