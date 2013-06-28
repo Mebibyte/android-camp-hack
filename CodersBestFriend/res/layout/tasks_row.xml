@@ -13,6 +13,7 @@
               android:textAppearance="?android:attr/textAppearanceLarge"
               android:textColor="#bab5b5"
               android:textSize="25dp"
+              android:maxLines="1"
             />
 
     <TextView android:id="@android:id/text2"
