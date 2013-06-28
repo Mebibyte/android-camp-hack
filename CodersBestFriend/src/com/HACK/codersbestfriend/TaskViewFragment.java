@@ -17,6 +17,11 @@ import java.util.LinkedHashMap;
 
 public class TaskViewFragment extends ListFragment {
 
+    public TaskViewFragment() {
+        super();
+        setRetainInstance(true);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

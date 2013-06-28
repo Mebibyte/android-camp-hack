@@ -22,11 +22,13 @@ public class CodersBestFragment extends Fragment {
     public CodersBestFragment() {
         super();
         _resource = R.layout.tasks_list;
+        setRetainInstance(true);
     }
 
     public CodersBestFragment(int resource) {
         super();
         _resource = resource;
+        setRetainInstance(true);
     }
 
     public int getResource() {

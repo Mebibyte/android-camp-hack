@@ -70,7 +70,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO: Fix changing orientation switching reverting current fragment to tasks.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
