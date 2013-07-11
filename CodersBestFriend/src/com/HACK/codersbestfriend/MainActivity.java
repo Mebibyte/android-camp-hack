@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
         if (savedInstanceState == null) {
             mCurrentFragment = new CodersBestFragment(R.layout.home);
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment, "fragmentTag").commit();
 
             Handler mHandler = new Handler();
             mHandler.postDelayed(new Runnable() {
@@ -110,6 +110,8 @@ public class MainActivity extends Activity {
                     selectItem(0);
                 }
             }, 1000);
+        } else {
+            mCurrentFragment = getFragmentManager().findFragmentByTag("fragmentTag");
         }
 
         mDbAdapter = new CodersBFDatabaseAdapter(this);
@@ -169,7 +171,7 @@ public class MainActivity extends Activity {
         mCurrentFragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment, "fragmentTag").commit();
     }
 
     // We can cast this because this is the onClick method of the NewTask view
@@ -215,7 +217,7 @@ public class MainActivity extends Activity {
         mCurrentFragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, mCurrentFragment, "fragmentTag").commit();
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
@@ -277,7 +279,7 @@ public class MainActivity extends Activity {
                 Bundle args = new Bundle();
                 mCurrentFragment.setArguments(args);
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment).commit();
+                fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment, "fragmentTag").commit();
             } else {
                ((TextView) findViewById(R.id.timer_error_text)).setText("Enter a time!");
             }
@@ -291,7 +293,7 @@ public class MainActivity extends Activity {
         Bundle args = new Bundle();
         mCurrentFragment.setArguments(args);
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment).commit();
+        fragmentManager.beginTransaction().replace(com.HACK.codersbestfriend.R.id.content_frame, mCurrentFragment, "fragmentTag").commit();
     }
 
     public static class ViewFragment extends Fragment {
